@@ -5,16 +5,19 @@
 package net.luvina.manageuser.dao;
 
 import java.util.List;
+
+import net.luvina.manageuser.entities.TblUser;
 import net.luvina.manageuser.entities.UserInfor;
 
 /**
  * @author PhuongNH
  *
  */
-public interface TblUserDao extends BaseDao{
+public interface TblUserDao extends BaseDao {
 
 	/**
-	 * Lấy danh sách  user
+	 * Lấy danh sách user
+	 *
 	 * @param offset
 	 *            vị trí data cần lấy nào
 	 * @param limit
@@ -30,10 +33,22 @@ public interface TblUserDao extends BaseDao{
 	 *            Giá trị sắp xếp của cột Tên(ASC or DESC)
 	 * @param sortByCodeLevel
 	 *            Giá trị sắp xếp của cột Trình độ tiếng nhật(ASC or DESC)
-	 * @param sortByEndDate Giá trị sắp xếp của cột Ngày kết hạn(ASC or DESC)
+	 * @param sortByEndDate
+	 *            Giá trị sắp xếp của cột Ngày kết hạn(ASC or DESC)
 	 * @return Danh sách các đối tượng UserInfor
 	 */
 	public List<UserInfor> getListUsers(int offset, int limit, int groupId,
 			String fullName, String sortType, String sortByFullName,
 			String sortByCodeLevel, String sortByEndDate);
+
+	/**
+	 * getTotalListUsers
+	 *
+	 * @param groupId
+	 *            group_id trong db
+	 * @param fullName
+	 *            full_name trong db
+	 * @return Tổng số user lấy được trong db
+	 */
+	public int getTotalUsers(int groupId, String fullName);
 }

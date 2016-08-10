@@ -31,4 +31,13 @@ public class TblUserLogicImpl implements TblUserLogic {
         return lsUsers;
 	}
 
+	/* (non-Javadoc)
+	 * @see net.luvina.manageuser.logics.TblUserLogic#getTotalUsers(int, java.lang.String)
+	 */
+	@Override
+	public int getTotalUsers(int groupId, String fullName) {
+		TblUserDaoImpl userDao = new TblUserDaoImpl();
+		return userDao.getTotalUsers(groupId, fullName);
+	}
+
 }

@@ -5,6 +5,8 @@
 package net.luvina.manageuser.logics;
 
 import java.util.List;
+
+import net.luvina.manageuser.entities.TblUser;
 import net.luvina.manageuser.entities.UserInfor;
 
 /**
@@ -35,4 +37,15 @@ public interface TblUserLogic {
 	public List<UserInfor> getListUsers(int offset, int limit, int groupId,
 			String fullName, String sortType, String sortByFullName,
 			String sortByCodeLevel, String sortByEndDate);
+
+	/**
+	 * getTotalListUsers
+	 *
+	 * @param groupId
+	 *            group_id trong db
+	 * @param fullName
+	 *            full_name trong db
+	 * @return Tổng số user lấy được trong db
+	 */
+	public int getTotalUsers(int groupId, String fullName);
 }

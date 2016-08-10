@@ -9,7 +9,7 @@
 
 <!-- Begin vung dieu kien tim kiem -->
 <form action="ListUser.do" method="post" name="mainform"><!-- Begin Tag hidden -->
-<input type="hidden" name="page" value="1" /> <%
+	<input type="hidden" name="page" value="1" /> <%
  	// Start fix bug ID 7 – PhuongNH 2016/08/04
  %> <input type="hidden" name="clickSearch" value="0"> <%
  	// End fix bug ID 7 – PhuongNH 2016/08/04
@@ -102,11 +102,19 @@
 <!-- End vung hien thi danh sach user -->
 
 <!-- Begin vung paging -->
-<!--  <table>
+<table>
 	<tr>
-		<td class="lbl_paging"><%--<%=request.getAttribute("strPaging")%>--%></td>
+		<!--  <td class="lbl_paging"><%--<%=request.getAttribute("strPaging")%>--%></td> -->
+		<c:set var="totalPage" value="${requestScope.totalPage}"></c:set>
+		<c:set var="listPaging" value="${requestScope.listPaging}"></c:set>
+		<c:set var="page" value="${requestScope.page}"></c:set>
+		<td class = "lbl_paging">
+			<c:forEach items="${listPaging}" var="paging">
+				<a href="#">${paging}</a>&nbsp;
+			</c:forEach>
+		</td>
 	</tr>
-</table> -->
+</table>
 <!-- End vung paging -->
 
 <jsp:include page="footer.jsp" />

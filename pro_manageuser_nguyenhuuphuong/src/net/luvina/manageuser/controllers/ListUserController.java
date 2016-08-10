@@ -64,6 +64,7 @@ public class ListUserController extends javax.servlet.http.HttpServlet
 			MstGroupLogicImpl groupLogic = new MstGroupLogicImpl();
 			List<MstGroup> listGroup = new ArrayList<MstGroup>();
 			List<UserInfor> listUser = new ArrayList<UserInfor>();
+			List<Integer> listPaging = new ArrayList<Integer>();
 			HttpSession session = request.getSession();
 			UserInfor user = new UserInfor();
 			String message = null;
@@ -96,10 +97,36 @@ public class ListUserController extends javax.servlet.http.HttpServlet
 			//get list group
 			listGroup = groupLogic.getAllGroups();
 
-			// get limit
+			// process Paging
+			int totalRecords = userLogic.getTotalUsers(group_id, fullnameSearch);
 			int limit = Integer.parseInt(ConfigureProperties.getData("limit"));
+			int totalPage = (int) Math.ceil((double) totalRecords / limit);
+
+			// get hidden feil
+			if (request.getParameter("page") != null) {
+				page = Integer.parseInt(request.getParameter("page"));
+			}
+
+			// nếu click search thì gán page = 1 tức là trang đầu tiên
+			if (page == 0) {
+				page = 1;
+			}
+
+			// nếu không có user nào thì gán page = 0;
+			if (totalPage == 0) {
+				page = 0;
+			}
+
+			if (page > totalPage) {
+				page = totalPage;
+			}
+			int offset = (page > 0) ? limit * ((int) page - 1) : 0;
+
+			// get list paging
+			listPaging = Common.getListPaging(totalRecords, limit, page);
+
 			// get list user
-			listUser = userLogic.getListUsers(0,limit, group_id, fullnameSearch, "full_name", "ASC", "DESC", "DESC");
+			listUser = userLogic.getListUsers(offset,limit, group_id, fullnameSearch, "full_name", "ASC", "DESC", "DESC");
 
 			// nếu không tìm thấy user
 			if (listUser.size() == 0) {
@@ -108,11 +135,17 @@ public class ListUserController extends javax.servlet.http.HttpServlet
 				message = MessageProperties.getMessage("MSG005");
 			}
 
+
+
 			// set data to ADM002.jsp
 			request.setAttribute("listGroup", listGroup);
 			request.setAttribute("listUser", listUser);
 			request.setAttribute("full_name", fullnameSearch);
 			request.setAttribute("group_id", group_id);
+
+			request.setAttribute("page", page);
+			request.setAttribute("totalPage", totalPage);
+			request.setAttribute("listPaging", listPaging);
 
 			// Set message
 			request.setAttribute("message", message);

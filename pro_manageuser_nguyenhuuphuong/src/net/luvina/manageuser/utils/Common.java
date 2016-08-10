@@ -4,16 +4,65 @@
  */
 package net.luvina.manageuser.utils;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 /**
  * @author PhuongNH
- * 
+ *
  */
 public class Common {
 	/**
+	 * Lấy danh sách các bản ghi cần hiển thị trong trang hiện tại
+	 *
+	 * @param totalRecords
+	 *            tổng số bản ghi list đc
+	 * @param limit
+	 *            số bản ghi trong 1 trang
+	 * @param currentPage
+	 *            trang hiện tại
+	 * @return list các page cần hiển thị trong trang hiện tại. Nếu trang hiện
+	 *         tại không tồn tại thì trả về null
+	 */
+	public static ArrayList<Integer> getListPaging(int totalRecords, int limit,
+			int currentPage) {
+		ArrayList<Integer> listPaging = null;
+		// Tính tổng số trang
+		int totalPage = (int) Math.ceil((double) totalRecords / limit);
+		// vòng lặp chạy từ 1 đến tổng số trang, bước nhảy 3
+		for (int i = 1; i <= totalPage; i += 3) {
+			// nếu không tồn tai trang hiện tại
+			if (currentPage > totalPage) {
+				break;
+			}
+			// nếu trang hiện tại nằm trong khoảng từ biến chạy i đến i+3
+			if (currentPage >= i && currentPage < (i + 3)) {
+				// khởi tạo listPaging
+				listPaging = new ArrayList<Integer>();
+				// add trang i vào list
+				listPaging.add(i);
+				// tăng i lên 1
+				int j = i + 1;
+				// kiểm tra đã vượt quá tổng số trang chưa. nếu chưa thì add
+				if (j <= totalPage) {
+					listPaging.add(i + 1);
+				}
+				// tăng i lên 2
+				j++;
+				// kiểm tra tương tự
+				if (j <= totalPage) {
+					listPaging.add(i + 2);
+				}
+				break;
+			}
+		}
+		return listPaging;
+	}
+
+	/**
 	 * Paging
-	 * 
+	 *
 	 * @param record_num
 	 *            int
 	 * @param record_per_page
@@ -170,7 +219,7 @@ public class Common {
 
 	/**
 	 * Escape special chars html
-	 * 
+	 *
 	 * @param content
 	 *            String
 	 * @return String htmlspecialchars
@@ -207,7 +256,7 @@ public class Common {
 
 	/**
 	 * escapeInjection
-	 * 
+	 *
 	 * @param str
 	 *            String
 	 * @return String escapeInjection
@@ -220,7 +269,7 @@ public class Common {
 
 	/**
 	 * checkLogin
-	 * 
+	 *
 	 * @param session
 	 *            HttpSession
 	 * @return ADM001
@@ -233,4 +282,11 @@ public class Common {
 		return template;
 
 	}
+
+//	 public static void main(String[] args) {
+//	 Common common = new Common();
+//	 ArrayList<Integer> listpaging = common.getListPaging(3, 5, 1);
+//
+//	 System.out.println(listpaging);
+//	 }
 }
