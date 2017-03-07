@@ -3,49 +3,41 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set value="<%=request.getContextPath()%>" var="url"></c:set>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Index</title>
 <jsp:include page="head.jsp"></jsp:include>
+<script src='//cdn.jsdelivr.net/jquery.marquee/1.4.0/jquery.marquee.min.js'></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#wellcome').marquee({
+			//speed in milliseconds of the marquee
+			duration : 9000,
+			//gap in pixels between the tickers
+			gap : 50,
+			//time in milliseconds before the marquee will start animating
+			delayBeforeStart : 0,
+			//'left' or 'right'
+			direction : 'left',
+			//true or false - should the marquee be duplicated to show an effect of continues flow
+			duplicated : false
+		});
+	});
+</script>
 </head>
 <body>
 	<div class="container">
-		<div class="container" id="banner">
-			<div class="col-sm-2">
-				<img class="img-thumbnail" alt="Logo" src="${url }/images/logo.jpg"
-					width="100" height="200">
-			</div>
-			<div class="col-sm-10">
-				<p id="title">Hệ thống quản lý hoạt động</p>
-				<p id="title2">Bộ môn Kỹ thuật máy tính</p>
-				<p style="color: #FFF; text-align: right">
-					Xin chào <b>Nguyễn Văn A</b> [<a href="" style="color: #FFF">Logout</a>]
-				</p>
-			</div>
-		</div>
-
+		<jsp:include page="header.jsp"></jsp:include>
 		<!-- Bắt đầu row 2 -->
 		<div class="container text-center">
 			<div class="row content" id="content">
-				<!-- Slide bar -->
-				<div class="col-sm-2 sidenav">
-					<p>
-						<a href="#">Link</a>
-					</p>
-					<p>
-						<a href="#">Link</a>
-					</p>
-					<p>
-						<a href="#">Link</a>
-					</p>
-				</div>
+				<jsp:include page="slidebar.jsp"></jsp:include>
 				<!-- Content -->
-				<div class="col-sm-10 text-left"
-					style="border-right: solid 1px gray; border-left: solid 1px gray;">
-
+				<div class="col-sm-10 text-left" id="all_content">
 					<div class="col-sm-9">
 						<div id="wellcome">Chúc bạn 1 ngày làm việc hiệu quả.</div>
+
 						<div id="envent">
 							Các sự kiện sẽ diễn ra trong tuần
 							<table class="table">
@@ -65,6 +57,7 @@
 								</tr>
 							</table>
 						</div>
+
 					</div>
 					<div class="col-sm-3">
 						<script src="http://www.clocklink.com/embed.js"></script>
@@ -92,7 +85,7 @@
 							</tr>
 							<tr>
 								<td>1</td>
-								<td>30/3/2017 07:15 - 30/3/2017 10:15</td>
+								<td>07:15 - 10:15</td>
 								<td>Buổi sáng</td>
 							</tr>
 						</table>
@@ -108,18 +101,77 @@
 							</tr>
 							<tr>
 								<td>1</td>
-								<td>30/3/2017 07:15 - 30/3/2017 10:15</td>
+								<td>07:15 - 10:15</td>
 								<td>Đồ án</td>
+							</tr>
+						</table>
+					</div>
+					
+					<div id="teach" class="col-sm-12">
+						Lịch giảng dạy hôm nay của bạn
+						<table class="table">
+							<tr>
+								<th>STT</th>
+								<th>Thời gian</th>
+								<th>Tuần</th>
+								<th>Mã lớp</th>
+								<th>Mã môn học</th>
+								<th>Tên môn học</th>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>07:15 - 10:15</td>
+								<td>12</td>
+								<td>143563</td>
+								<td>IT4954</td>
+								<td>Thiết kế và xây dựng phần mềm</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>13:15 - 15:00</td>
+								<td>12</td>
+								<td>53467</td>
+								<td>IT1234</td>
+								<td>Tương tác người máy</td>
+							</tr>
+						</table>
+					</div>
+
+					<div id="holDay" class="col-sm-12">
+						<button type="button" class="btn btn-primary">Đăng ký nghỉ phép</button>
+						
+						<p id="txt-hol"><span class="glyphicon glyphicon-group"></span> Đơn xin nghỉ phép trong năm</p>
+						<table class="table">
+							<tr>
+								<th>STT</th>
+								<th>Thời gian</th>
+								<th>Loại</th>
+								<th>Lý do</th>
+								<th>Trạng thái</th>
+								<th>Action</th>
+							</tr>
+							<tr>
+								<td>1</td>
+								<td>15/3/2017 - 15/3/2017</td>
+								<td>Buổi sáng</td>
+								<td>Việc riêng</td>
+								<td>NA</td>
+								<td><button type="button" class="btn btn-success btn-xs">Cencle</button></td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>18/3/2017 - 18/3/2017</td>
+								<td>Cả ngày</td>
+								<td>Đi công tác</td>
+								<td>OK</td>
+								<td></td>
 							</tr>
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- footer -->
-		<footer class="container text-center">
-			<p>Footer Text</p>
-		</footer>
+		<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 </body>
 </html>
