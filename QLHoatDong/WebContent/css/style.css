@@ -103,3 +103,8 @@ footer {
 #table_register > tr > td:first, #table_register > tr > td:last {
 	text-align:center;
 }
+
+.mess_error{
+	color: red;
+	font-size: small;
+}
