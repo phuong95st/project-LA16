@@ -18,6 +18,7 @@ public class User {
 	private String email;
 	private String phone;
 	private Timestamp lastLogin;
+	private String name;
 
 	/**
 	 * @return the userId
@@ -107,6 +108,20 @@ public class User {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

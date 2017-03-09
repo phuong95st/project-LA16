@@ -46,6 +46,7 @@ public class EventDaoImpl extends BaseDaoImpl implements EventDao {
 					event.setEnd(rs.getTimestamp("time_end"));
 					event.setPlace(rs.getString("place"));
 					event.setContent(rs.getString("content"));
+					event.setTitle(rs.getString("title"));
 
 					list.add(event);
 				}

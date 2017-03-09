@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.HolDao;
+import dao.UserDao;
 import dao.impl.EventDaoImpl;
 import dao.impl.HolDaoImpl;
 import dao.impl.OnlDaoImpl;
@@ -26,10 +27,8 @@ import entity.Hol;
 import entity.Onl;
 import entity.ScheStu;
 import entity.Teach;
-import entity.Time;
 import entity.User;
 import utils.Common;
-import utils.Constant;
 import validate.ValidateUser;
 
 /**
@@ -68,13 +67,21 @@ public class LoginController extends HttpServlet {
 		}
 
 		// get user by email
-		User user = new UserDaoImpl().getUserByEmail(email);
+		UserDao userDao = new UserDaoImpl();
+		User user = userDao.getUserByEmail(email);
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);
 
 		// get list Hol
 		HolDao holDao = new HolDaoImpl();
-		List<Hol> listHol = holDao.getListHol(user.getUserId());
+		Calendar calendar =  Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+		calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 1);
+		calendar.set(Calendar.MONTH, 11);
+		calendar.set(Calendar.DAY_OF_MONTH,31);
+		calendar.set(Calendar.HOUR_OF_DAY,23);
+		calendar.set(Calendar.MINUTE,59);
+		calendar.set(Calendar.SECOND,59);
+		List<Hol> listHol = holDao.getListHol(new Timestamp(calendar.getTimeInMillis()), user.getUserId());
 
 		// Lấy danh sách lịch trực trong ngày hiện tại
 		List<Onl> lisOnls = new OnlDaoImpl().getListOnl(Common.getStartNow(),
@@ -89,8 +96,7 @@ public class LoginController extends HttpServlet {
 				Common.getStartNow(), Common.getEndNow(), user.getUserId());
 
 		// Lấy danh sách các sự kiện trong tuần
-		List<Event> lisEvents = new EventDaoImpl().getListEvent(
-				Common.getStartDay(), Common.getLastDayOfWeek());
+		List<Event> lisEvents = new EventDaoImpl().getListEvent(Common.getStartDay(), Common.getLastDayOfWeek());
 
 		Calendar now = Calendar.getInstance(TimeZone
 				.getTimeZone("Asia/Ho_Chi_Minh"));
@@ -98,28 +104,34 @@ public class LoginController extends HttpServlet {
 		Calendar lastLogin = new GregorianCalendar();
 		lastLogin.setTimeInMillis(user.getLastLogin().getTime());
 
-		Calendar i = new GregorianCalendar(lastLogin.get(Calendar.YEAR),
-				lastLogin.get(Calendar.MONTH),
-				lastLogin.get(Calendar.DAY_OF_MONTH));
-		Calendar stone = new GregorianCalendar(now.get(Calendar.YEAR),
-				now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+		Calendar i = new GregorianCalendar(lastLogin.get(Calendar.YEAR),lastLogin.get(Calendar.MONTH),lastLogin.get(Calendar.DAY_OF_MONTH));
+		Calendar stone = new GregorianCalendar(now.get(Calendar.YEAR),now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+		
+		System.out.println(new Timestamp(i.getTimeInMillis()));
+		System.out.println(new Timestamp(stone.getTimeInMillis()));
 		if (stone.compareTo(i) > 0) {
+			// lấy những ngày nghỉ sau thời gian login cuối
+			List<Hol> hols = holDao.getListHol(user.getLastLogin(), user.getUserId());
+			
 			// lặp qua các ngày nghỉ
-			for (Hol hol : listHol) {
+			for (Hol hol : hols) {
 				// xét những ngày nghỉ đăng kí nhưng chưa nghỉ
+				System.out.println(hol.isStatus());
 				if (!hol.isStatus()) {
 					Calendar endHol = new GregorianCalendar();
 					endHol.setTimeInMillis(hol.getEnd().getTime());
 					// nếu ngày nghỉ đã diễn ra (trước hôm nay thì insert vào
 					// db)
-					if (new GregorianCalendar(endHol.get(Calendar.YEAR),
-							endHol.get(Calendar.MONTH),
-							endHol.get(Calendar.DAY_OF_MONTH)).compareTo(stone) < 0) {
-						// update status
-						// if(!holDao.update(null, true)){
-						// response.sendRedirect("page_error.htm");
-						// return;
-						// }
+					if (endHol.compareTo(now) < 0) {
+						Hol newHol = new Hol();
+							newHol.setId(hol.getId());
+							newHol.setStatus(true);
+							newHol.setPhep(true);
+						// update status và phép
+						if (!holDao.update(newHol, true)) {
+							response.sendRedirect("page_error.htm");
+							return;
+						}
 					}
 				}
 			}
@@ -129,29 +141,35 @@ public class LoginController extends HttpServlet {
 			System.out.println("stone: "
 					+ new Timestamp(stone.getTimeInMillis()));
 			while (i.compareTo(stone) < 0) {
-				boolean flag = false;
-				for (Hol hol : listHol) {
-					// xét những ngày nghỉ, đăng kí nhưng chưa nghỉ và trước hôm
-					// nay
-					Calendar endHol = new GregorianCalendar();
-					endHol.setTimeInMillis(hol.getEnd().getTime());
-
-					Calendar j = new GregorianCalendar(
-							endHol.get(Calendar.YEAR),
-							endHol.get(Calendar.MONTH),
-							endHol.get(Calendar.DAY_OF_MONTH));
-					if (!hol.isStatus() && j.compareTo(stone) < 0) {
-						// nếu ngày nghỉ nằm trong ngày không login
-						if (i.compareTo(j) == 0) {
-							flag = true;
-						}
-					}
+				// lấy ngày nghỉ = ngày i
+				Hol hol = holDao.getHolByTime(new Timestamp(i.getTimeInMillis()), user.getUserId());
+				System.out.println(hol);
+				Hol hol2 = new Hol();
+				hol2.setType(3);
+				hol2.setStart(new Timestamp(i.getTimeInMillis()));
+				hol2.setEnd(new Timestamp(i.getTimeInMillis()));
+				hol2.setReason("Nghỉ không phép");
+				hol2.setStatus(true);
+				hol2.setPhep(false);
+				User user2 = new User();
+				user2.setUserId(user.getUserId());
+				hol2.setUser(user2);
+				// nếu có thì kiểm tra
+				if(hol != null){
+					// nếu là nghỉ sáng
+					if(hol.getType() == 1){
+						hol2.setType(2);
+					}else{
+						hol2.setType(1);
+					} 	
 				}
-				if (!flag) {
-					// insert nghỉ không phép
-					System.out.println("nghỉ không phép");
-
+				Common.autoSetTimeHol(hol2);
+				// insert
+				if(!holDao.insert(hol2)){
+					response.sendRedirect("page_error.htm");
+					return;
 				}
+				
 				i.set(Calendar.DAY_OF_MONTH, i.get(Calendar.DAY_OF_MONTH) + 1);
 			}
 
@@ -168,11 +186,22 @@ public class LoginController extends HttpServlet {
 						.ceil(((double) (now.getTimeInMillis() - stone
 								.getTimeInMillis()) / 1000) / 60);
 				System.out.println("Muộn: " + rangeMin);
-				// insert ngày đi muộn
+				
+				request.setAttribute("rangeMin", rangeMin);
 			}
-			
+
 			// update thời gian login cuối cùng
+			if(!userDao.updateLastLogin(new Timestamp(now.getTimeInMillis()), user.getUserId())){
+				response.sendRedirect("page_error.htm");
+				return;
+			}
 		}
+		
+		request.setAttribute("lisOnls", lisOnls);
+		request.setAttribute("listHol", listHol);
+		request.setAttribute("lisScheStus", lisScheStus);
+		request.setAttribute("listTeachs", listTeachs);
+		request.setAttribute("lisEvents", lisEvents);
 		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}

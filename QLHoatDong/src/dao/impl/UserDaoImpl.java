@@ -5,6 +5,7 @@
 package dao.impl;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import dao.UserDao;
 import entity.User;
@@ -73,6 +74,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 					user.setEmail(rs.getString("email"));
 					user.setPhone(rs.getString("phone"));
 					user.setLastLogin(rs.getTimestamp("last_login"));
+					user.setName(rs.getString("name"));
 				}
 			} catch (SQLException e) {
 				System.out.println("Error: " + e.getMessage());
@@ -82,6 +84,34 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
 		}
 		return user;
+	}
+
+	/* (non-Javadoc)
+	 * @see dao.UserDao#updateLastLogin(java.sql.Timestamp, int)
+	 */
+	@Override
+	public boolean updateLastLogin(Timestamp time, int userId) {
+		if (connectToDB()) {
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE tbl_user SET last_login = ? WHERE user_id = ? ");
+
+			try {
+				ps = conn.prepareStatement(sql.toString());
+				ps.setTimestamp(1, time);
+				ps.setInt(2, userId);
+
+				int result = ps.executeUpdate();
+				if(result != 0){
+					return true;
+				}
+			} catch (SQLException e) {
+				System.out.println("Error: " + e.getMessage());
+			} finally {
+				close();
+			}
+
+		}
+		return false;
 	}
 
 }

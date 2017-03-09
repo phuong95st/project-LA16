@@ -4,6 +4,8 @@
  */
 package dao;
 
+import java.sql.Timestamp;
+
 import entity.User;
 
 /**
@@ -31,4 +33,6 @@ public interface UserDao {
 	 * @return Đối tượng User
 	 */
 	public User getUserByEmail(String email);
+	
+	public boolean updateLastLogin(Timestamp time, int userId);
 }

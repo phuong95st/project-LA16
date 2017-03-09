@@ -11,7 +11,7 @@ package entity;
  */
 public class ScheStu extends Time {
 	private long id;
-	private String type;
+	private int type;
 	private User user;
 
 	/**
@@ -27,7 +27,7 @@ public class ScheStu extends Time {
 	 * @param type
 	 * @param user
 	 */
-	public ScheStu(long id, String type, User user) {
+	public ScheStu(long id, int type, User user) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -52,7 +52,7 @@ public class ScheStu extends Time {
 	/**
 	 * @return the type
 	 */
-	public String getType() {
+	public int getType() {
 		return type;
 	}
 
@@ -60,7 +60,7 @@ public class ScheStu extends Time {
 	 * @param type
 	 *            the type to set
 	 */
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 

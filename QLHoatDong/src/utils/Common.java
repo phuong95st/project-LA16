@@ -7,6 +7,7 @@ package utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
@@ -170,9 +171,36 @@ public class Common {
 		}
 	}
 
+	public static String getHour(Timestamp time) {
+		Calendar calendar = Calendar.getInstance(TimeZone
+				.getTimeZone("Asia/Ho_Chi_Minh"));
+		calendar.setTimeInMillis(time.getTime());
+		return new SimpleDateFormat("HH:mm").format(calendar.getTime());
+	}
+	
+	public static String mapType(int type){
+		if(type == 1){
+			return "Buổi sáng";
+		}else if(type == 2){
+			return "Buổi chiều";
+		}
+		return "Cả ngày";
+	}
+	
+	public static String mappingTypeStudent(int typeStudent){
+		if(typeStudent == 1){
+			return "Project 1: Nhập môn";
+		}else if(typeStudent == 2){
+			return "Project 2: Phân tích và thiết kế HTTT";
+		}else if(typeStudent == 3){
+			return "Project 3: Định hướng công nghệ";
+		}
+		return "Đồ án tốt nghiệp";
+	}
+
 	public static void main(String[] args) {
 		System.out.println(new GregorianCalendar(2017, 2, 8)
-				.compareTo(new GregorianCalendar(2017, 2, 8))>0);
+				.compareTo(new GregorianCalendar(2017, 2, 8)) > 0);
 
 	}
 }

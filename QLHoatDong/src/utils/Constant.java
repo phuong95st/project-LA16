@@ -12,4 +12,5 @@ package utils;
 public class Constant {
 
 	public static final long ONE_DAY = 24 * 3600 * 1000;
+	
 }

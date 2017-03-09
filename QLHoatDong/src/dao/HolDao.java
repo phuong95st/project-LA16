@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import entity.Hol;
@@ -15,23 +16,29 @@ import entity.Hol;
  */
 public interface HolDao {
 	/**
-	 * Lấy danh sách các ngày nghỉ của nhân viên
+	 * Lấy danh sách các ngày nghỉ của nhân viên sau thời điểm xác định
 	 * 
+	 * @param time
+	 *            Thời điểm
 	 * @param userId
 	 *            userId
 	 * @return List các đối tượng Hol
 	 */
-	public List<Hol> getListHol(int userId);
+	public List<Hol> getListHol(Timestamp time, int userId);
 
 	/**
 	 * Update thông tin lịch nghỉ
 	 * 
 	 * @param hol
-	 *            đối tượng lịch nghỉ
-	 * @param status
-	 *            nếu update trường status thì hol = null. Nếu update cả đối
-	 *            tượng hol thì hol != null
-	 * @return true: update thành công. false: update thất bại
+	 *            hol
+	 * @param changeStatus
+	 *            có thay đổi trạng thái hay không
+	 * @return true: update thành công. flase update không thành công
 	 */
-	public boolean update(Hol hol, boolean status);
+	public boolean update(Hol hol, boolean changeStatus);
+
+	public Hol getHolByTime(Timestamp time, int userId);
+	
+	public boolean insert(Hol hol);
+
 }

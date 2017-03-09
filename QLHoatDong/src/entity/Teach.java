@@ -16,6 +16,7 @@ public class Teach extends Time {
 	private String codeSubject;
 	private String name;
 	private User user;
+	private String phong;
 
 	/**
 	 * @return the id
@@ -105,6 +106,20 @@ public class Teach extends Time {
 	 */
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	/**
+	 * @return the phong
+	 */
+	public String getPhong() {
+		return phong;
+	}
+
+	/**
+	 * @param phong the phong to set
+	 */
+	public void setPhong(String phong) {
+		this.phong = phong;
 	}
 
 }

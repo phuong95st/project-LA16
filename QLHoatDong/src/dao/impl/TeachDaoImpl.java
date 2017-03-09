@@ -53,6 +53,7 @@ public class TeachDaoImpl extends BaseDaoImpl implements TeachDao {
 					User user = new User();
 					user.setUserId(rs.getInt("user_id"));
 					teach.setUser(user);
+					teach.setPhong(rs.getString("phong"));
 
 					list.add(teach);
 				}

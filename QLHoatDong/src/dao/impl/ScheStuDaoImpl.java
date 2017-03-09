@@ -44,7 +44,7 @@ public class ScheStuDaoImpl extends BaseDaoImpl implements ScheStuDao {
 					scheStu.setId(rs.getInt("id"));
 					scheStu.setStart(rs.getTimestamp("time_start"));
 					scheStu.setEnd(rs.getTimestamp("time_end"));
-					scheStu.setType(rs.getString("type_stu"));
+					scheStu.setType(rs.getInt("type_stu"));
 					User user = new User();
 					user.setUserId(rs.getInt("user_id"));
 					scheStu.setUser(user);

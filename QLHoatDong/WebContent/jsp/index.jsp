@@ -2,15 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set value="<%=request.getContextPath()%>" var="url"></c:set>
+<%@ taglib uri="/WEBINF/tlds/MyTaglib" prefix="my"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Index</title>
 <jsp:include page="head.jsp"></jsp:include>
-<script src='//cdn.jsdelivr.net/jquery.marquee/1.4.0/jquery.marquee.min.js'></script>
+<script
+	src='//cdn.jsdelivr.net/jquery.marquee/1.4.0/jquery.marquee.min.js'></script>
 <script type="text/javascript">
-	$(document).ready(function(){
+	$(document).ready(function() {
 		$('#wellcome').marquee({
 			//speed in milliseconds of the marquee
 			duration : 9000,
@@ -40,22 +42,33 @@
 
 						<div id="envent">
 							Các sự kiện sẽ diễn ra trong tuần
-							<table class="table">
-								<tr>
-									<th>Tên</th>
-									<th>Thời gian</th>
-									<th>Địa điểm</th>
-									<th>Loại</th>
-									<th>Nội dung</th>
-								</tr>
-								<tr>
-									<td>Du xuân đầu năm 2017</td>
-									<td>30/3/2017 07:15</td>
-									<td>Nhà B1 ĐHBK HN</td>
-									<td>Du lịch</td>
-									<td>Tham quan chùa Bái Đính</td>
-								</tr>
-							</table>
+							<c:choose>
+								<c:when test="${lisEvents.size() == 0 }">
+									<br>
+									<div class="alert alert-danger small">Không có sự kiện
+										nào trong tuần</div>
+								</c:when>
+								<c:otherwise>
+									<table class="table">
+										<tr>
+											<th>Tên</th>
+											<th>Thời gian</th>
+											<th>Địa điểm</th>
+											<th>Loại</th>
+											<th>Nội dung</th>
+										</tr>
+										<c:forEach items="${lisEvents }" var="envent">
+											<tr class="small">
+												<td>${envent.title }</td>
+												<td>${envent.start }</td>
+												<td>${envent.place }</td>
+												<td>${envent.type.typeName }</td>
+												<td>${envent.content }</td>
+											</tr>
+										</c:forEach>
+									</table>
+								</c:otherwise>
+							</c:choose>
 						</div>
 
 					</div>
@@ -77,36 +90,62 @@
 					</div>
 					<div id="OnlCal" class="col-sm-12">
 						Lịch trực bộ môn ngày hôm nay
-						<table class="table">
-							<tr>
-								<th>STT</th>
-								<th>Thời gian</th>
-								<th>Ca trực</th>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>07:15 - 10:15</td>
-								<td>Buổi sáng</td>
-							</tr>
-						</table>
+						<c:choose>
+							<c:when test="${lisOnls.size() == 0 }">
+								<div class="alert alert-danger small">Không có lịch trực
+									tuần này</div>
+							</c:when>
+							<c:otherwise>
+								<table class="table">
+									<tr>
+										<th>STT</th>
+										<th>Thời gian</th>
+										<th>Ca trực</th>
+									</tr>
+									<c:set var="no" value="1" />
+									<c:forEach items="${lisOnls}" var="onl">
+										<tr>
+											<td>${no }</td>
+											<td>${my:getHour(onl.start) } - ${my:getHour(onl.end) }</td>
+											<td>${my:mapType(onl.caTruc) }</td>
+										</tr>
+										<c:set var="no" value="${no + 1}"></c:set>
+									</c:forEach>
+								</table>
+							</c:otherwise>
+						</c:choose>
+
 					</div>
 
 					<div id="stuCal" class="col-sm-12">
 						Lịch gặp sinh viên hôm nay
-						<table class="table">
-							<tr>
-								<th>STT</th>
-								<th>Thời gian</th>
-								<th>Loại sinh viên</th>
-							</tr>
-							<tr>
-								<td>1</td>
-								<td>07:15 - 10:15</td>
-								<td>Đồ án</td>
-							</tr>
-						</table>
+						<c:choose>
+							<c:when test="${lisScheStus.size() == 0 }">
+								<div class="alert alert-danger small">Không có lịch gặp
+									nào</div>
+							</c:when>
+							<c:otherwise>
+								<table class="table">
+									<tr>
+										<th>No.</th>
+										<th>Thời gian</th>
+										<th>Loại sinh viên</th>
+									</tr>
+									<c:set var="no" value="1" />
+									<c:forEach items="${lisScheStus}" var="scheStu">
+										<tr>
+											<td>${no }</td>
+											<td>${my:getHour(scheStu.start) } - ${my:getHour(scheStu.end) }</td>
+											<td>${my:mappingTypeStudent(scheStu.type) }</td>
+										</tr>
+										<c:set var="no" value="${no + 1}"></c:set>
+									</c:forEach>
+
+								</table>
+							</c:otherwise>
+						</c:choose>
 					</div>
-					
+
 					<div id="teach" class="col-sm-12">
 						Lịch giảng dạy hôm nay của bạn
 						<table class="table">
@@ -138,9 +177,13 @@
 					</div>
 
 					<div id="holDay" class="col-sm-12">
-						<button type="button" class="btn btn-primary">Đăng ký nghỉ phép</button>
-						
-						<p id="txt-hol"><span class="glyphicon glyphicon-group"></span> Đơn xin nghỉ phép trong năm</p>
+						<button type="button" class="btn btn-primary">Đăng ký
+							nghỉ phép</button>
+
+						<p id="txt-hol">
+							<span class="glyphicon glyphicon-group"></span> Đơn xin nghỉ phép
+							trong năm
+						</p>
 						<table class="table">
 							<tr>
 								<th>STT</th>

@@ -14,6 +14,7 @@ public class Event extends Time {
 	private TypeEvent type;
 	private String place;
 	private String content;
+	private String title;
 
 	/**
 	 * 
@@ -95,6 +96,20 @@ public class Event extends Time {
 	 */
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }
