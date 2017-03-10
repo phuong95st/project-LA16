@@ -39,7 +39,8 @@
 							<td>Từ <input type="text" class="datepicker"> đến <input
 								type="text" class="datepicker">
 							</td>
-							<td><select class="selectpicker" data-width="fit">
+							<td>
+							<select class="selectpicker" data-width="fit">
 									<option>Buổi sáng</option>
 									<option>Buổi chiều</option>
 									<option>Cả ngày</option>
