@@ -22,4 +22,16 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd">
 		<function-class>utils.Common</function-class>
 		<function-signature>java.lang.String mappingTypeStudent (int)</function-signature>
 	</function>
+	<function>
+		<description>Lấy ngày trong chuỗi Timestamp</description>
+		<name>getDay</name>
+		<function-class>utils.Common</function-class>
+		<function-signature>java.lang.String getDay (java.sql.Timestamp)</function-signature>
+	</function>
+	<function>
+		<description>Mapping trạng thái</description>
+		<name>mappingStatus</name>
+		<function-class>utils.Common</function-class>
+		<function-signature>java.lang.String mappingStatus (boolean)</function-signature>
+	</function>
 </taglib>

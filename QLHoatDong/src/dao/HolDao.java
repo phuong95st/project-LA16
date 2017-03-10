@@ -40,5 +40,12 @@ public interface HolDao {
 	public Hol getHolByTime(Timestamp time, int userId);
 	
 	public boolean insert(Hol hol);
+	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public boolean delete(long id);
 
 }

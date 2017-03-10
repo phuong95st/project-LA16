@@ -6,6 +6,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Đăng ký ngày nghỉ</title>
 <jsp:include page="head.jsp"></jsp:include>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.datepicker').datepicker({
+			format : 'dd-mm-yyyy',
+		});
+	});
+</script>
 </head>
 <body>
 	<div class="container">
@@ -20,40 +27,42 @@
 					<h3>Đăng ký nghỉ phép</h3>
 					<hr>
 
-						<table class="table table-bordered" style="background-color: #F1F5F8;" id="table_register">
-							<tr >
-								<th >Ngày đăng ký nghỉ phép</th>
-								<th>Loại nghỉ</th>
-								<th>Lý do nghỉ</th>
-								<th></th>
-							</tr>
-							<tr>
-								<td >Từ <input type="text" width="20px"> đến <input
-									type="text" width="20px">
-								</td>
-								<td>
-								<select class="selectpicker" data-width="fit">
-										<option>Buổi sáng</option>
-										<option>Buổi chiều</option>
-										<option>Cả ngày</option>
-								</select>
-								</td>
-								<td><input type="text" class="form-control"></td>
-								<td>[<a href="">Add</a>]</td>
-							</tr>
-							<tr>
-								<td>12/3/2017 - 12/3/2017</td>
-								<td>Buổi sáng</td>
-								<td>Nhà có việc</td>
-								<td>[<a href="">Delete</a>]</td>
-							</tr>
-							<tr>
-								<td>12/3/2017 - 12/3/2017</td>
-								<td>Cả ngày</td>
-								<td>Ốm</td>
-								<td>[<a href="">Delete</a>]</td>
-							</tr>
-						</table>
+					<table class="table table-bordered"
+						style="background-color: #F1F5F8;" id="table_register">
+						<tr>
+							<th>Ngày đăng ký nghỉ phép</th>
+							<th>Loại nghỉ</th>
+							<th>Lý do nghỉ</th>
+							<th></th>
+						</tr>
+						<tr>
+							<td>Từ <input type="text" class="datepicker"> đến <input
+								type="text" class="datepicker">
+							</td>
+							<td><select class="selectpicker" data-width="fit">
+									<option>Buổi sáng</option>
+									<option>Buổi chiều</option>
+									<option>Cả ngày</option>
+							</select></td>
+							<td><input type="text" class="form-control"></td>
+							<td>[<a href="">Add</a>]
+							</td>
+						</tr>
+						<tr>
+							<td>12/3/2017 - 12/3/2017</td>
+							<td>Buổi sáng</td>
+							<td>Nhà có việc</td>
+							<td>[<a href="">Delete</a>]
+							</td>
+						</tr>
+						<tr>
+							<td>12/3/2017 - 12/3/2017</td>
+							<td>Cả ngày</td>
+							<td>Ốm</td>
+							<td>[<a href="">Delete</a>]
+							</td>
+						</tr>
+					</table>
 
 					<button class="btn btn-success">Register</button>
 				</div>

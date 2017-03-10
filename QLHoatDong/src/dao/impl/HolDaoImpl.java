@@ -199,4 +199,31 @@ public class HolDaoImpl extends BaseDaoImpl implements HolDao {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see dao.HolDao#delete(long)
+	 */
+	@Override
+	public boolean delete(long id) {
+		if (connectToDB()) {
+			StringBuilder sql = new StringBuilder();
+			sql.append("DELETE FROM tbl_hol_sche WHERE id=?");
+			
+			try {
+				ps = conn.prepareStatement(sql.toString());
+				ps.setLong(1, id);
+
+				int result = ps.executeUpdate();
+				if(result != 0){
+					return true;
+				}
+			} catch (SQLException e) {
+				System.out.println("Error: " + e.getMessage());
+			} finally {
+				close();
+			}
+
+		}
+		return false;
+	}
+
 }

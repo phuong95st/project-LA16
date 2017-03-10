@@ -197,6 +197,30 @@ public class Common {
 		}
 		return "Đồ án tốt nghiệp";
 	}
+	
+	/**
+	 * Lấy ngày trong chuỗi Timestamp
+	 * @param time
+	 * @return
+	 */
+	public static String getDay(Timestamp time){
+		Calendar calendar = Calendar.getInstance(TimeZone
+				.getTimeZone("Asia/Ho_Chi_Minh"));
+		calendar.setTimeInMillis(time.getTime());
+		return new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime());
+	}
+	
+	/**
+	 * 
+	 * @param status
+	 * @return
+	 */
+	public static String mappingStatus(boolean status){
+		if(status){
+			return "OK";
+		}
+		return "NA";
+	}
 
 	public static void main(String[] args) {
 		System.out.println(new GregorianCalendar(2017, 2, 8)

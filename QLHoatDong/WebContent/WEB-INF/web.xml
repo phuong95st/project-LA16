@@ -4,4 +4,12 @@
   <welcome-file-list>
     <welcome-file>redirect.jsp</welcome-file>
   </welcome-file-list>
+  <filter>
+    <filter-name>CharactorEncodingFilter</filter-name>
+    <filter-class>utils.CharactorEncodingFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CharactorEncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>
