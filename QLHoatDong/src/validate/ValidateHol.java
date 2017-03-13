@@ -84,8 +84,6 @@ public class ValidateHol {
 			}
 		}
 		
-		// lấy danh sách những ngày chưa nghỉ
-		
 		return list;
 	}
 
