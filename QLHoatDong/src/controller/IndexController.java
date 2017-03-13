@@ -49,6 +49,9 @@ public class IndexController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		UserDao userDao = new UserDaoImpl();
+		// update thời gian login cuối
+		user.setLastLogin(userDao.getLastLogin(user.getUserId()));
+
 		// get list Hol
 		HolDao holDao = new HolDaoImpl();
 		Calendar calendar = Calendar.getInstance(TimeZone
@@ -59,7 +62,8 @@ public class IndexController extends HttpServlet {
 		calendar.set(Calendar.HOUR_OF_DAY, 23);
 		calendar.set(Calendar.MINUTE, 59);
 		calendar.set(Calendar.SECOND, 59);
-		List<Hol> listHol = holDao.getListHol(new Timestamp(calendar.getTimeInMillis()), user.getUserId());
+		List<Hol> listHol = holDao.getListHol(
+				new Timestamp(calendar.getTimeInMillis()), user.getUserId());
 
 		// Lấy danh sách lịch trực trong ngày hiện tại
 		List<Onl> lisOnls = new OnlDaoImpl().getListOnl(Common.getStartNow(),
@@ -89,17 +93,17 @@ public class IndexController extends HttpServlet {
 		Calendar stone = new GregorianCalendar(now.get(Calendar.YEAR),
 				now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
 
-		System.out.println(new Timestamp(i.getTimeInMillis()));
-		System.out.println(new Timestamp(stone.getTimeInMillis()));
+		System.out.println("last: " + new Timestamp(i.getTimeInMillis()));
+		System.out.println("now: " + new Timestamp(stone.getTimeInMillis()));
+		System.out.println("-----------------------");
 		if (stone.compareTo(i) > 0) {
 			// lấy những ngày nghỉ sau thời gian login cuối
 			List<Hol> hols = holDao.getListHol(user.getLastLogin(),
 					user.getUserId());
-
 			// lặp qua các ngày nghỉ
 			for (Hol hol : hols) {
 				// xét những ngày nghỉ đăng kí nhưng chưa nghỉ
-				System.out.println(hol.isStatus());
+				// System.out.println(hol.isStatus());
 				if (!hol.isStatus()) {
 					Calendar endHol = new GregorianCalendar();
 					endHol.setTimeInMillis(hol.getEnd().getTime());
@@ -120,38 +124,43 @@ public class IndexController extends HttpServlet {
 			}
 
 			i.set(Calendar.DAY_OF_MONTH, i.get(Calendar.DAY_OF_MONTH) + 1);
-			System.out.println("i: " + new Timestamp(i.getTimeInMillis()));
-			System.out.println("stone: "
-					+ new Timestamp(stone.getTimeInMillis()));
 			while (i.compareTo(stone) < 0) {
-				// lấy ngày nghỉ = ngày i
-				Hol hol = holDao.getHolByTime(
-						new Timestamp(i.getTimeInMillis()), user.getUserId());
-				System.out.println(hol);
-				Hol hol2 = new Hol();
-				hol2.setType(3);
-				hol2.setStart(new Timestamp(i.getTimeInMillis()));
-				hol2.setEnd(new Timestamp(i.getTimeInMillis()));
-				hol2.setReason("Nghỉ không phép");
-				hol2.setStatus(true);
-				hol2.setPhep(false);
-				User user2 = new User();
-				user2.setUserId(user.getUserId());
-				hol2.setUser(user2);
-				// nếu có thì kiểm tra
-				if (hol != null) {
-					// nếu là nghỉ sáng
-					if (hol.getType() == 1) {
-						hol2.setType(2);
-					} else {
-						hol2.setType(1);
+				// kiểm tra có phải thứ 7 và chủ nhật không?
+				if (!(i.get(Calendar.DAY_OF_WEEK) == 7 || i
+						.get(Calendar.DAY_OF_WEEK) == 1)) {
+					// lấy ngày nghỉ = ngày i
+					Hol hol = holDao.getHolByTime(
+							new Timestamp(i.getTimeInMillis()),
+							user.getUserId());
+					Hol hol2 = new Hol();
+					hol2.setType(3);
+					hol2.setStart(new Timestamp(i.getTimeInMillis()));
+					hol2.setEnd(new Timestamp(i.getTimeInMillis()));
+					hol2.setReason("Nghỉ không phép");
+					hol2.setStatus(true);
+					hol2.setPhep(false);
+					User user2 = new User();
+					user2.setUserId(user.getUserId());
+					hol2.setUser(user2);
+					
+					System.out.println("day_of week: "
+							+ i.get(Calendar.DAY_OF_WEEK));
+					// nếu có thì kiểm tra
+					if (hol != null) {
+						// nếu là nghỉ sáng
+						if (hol.getType() == 1) {
+							hol2.setType(2);
+						} else {
+							hol2.setType(1);
+						}
 					}
-				}
-				Common.autoSetTimeHol(hol2);
-				// insert
-				if (!holDao.insert(hol2)) {
-					response.sendRedirect("page_error.htm");
-					return;
+					Common.autoSetTimeHol(hol2);
+					// insert
+					if (!holDao.insert(hol2)) {
+						response.sendRedirect("page_error.htm");
+						return;
+					}
+
 				}
 
 				i.set(Calendar.DAY_OF_MONTH, i.get(Calendar.DAY_OF_MONTH) + 1);
@@ -161,9 +170,10 @@ public class IndexController extends HttpServlet {
 			stone.set(Calendar.MINUTE, 1);
 			stone.set(Calendar.SECOND, 0);
 
-			System.out.println("now: " + new Timestamp(now.getTimeInMillis()));
-			System.out.println("stone: "
-					+ new Timestamp(stone.getTimeInMillis()));
+			// System.out.println("now: " + new
+			// Timestamp(now.getTimeInMillis()));
+			// System.out.println("stone: "
+			// + new Timestamp(stone.getTimeInMillis()));
 
 			if (now.after(stone)) {
 				int rangeMin = (int) Math

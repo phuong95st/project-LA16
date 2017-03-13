@@ -6,6 +6,7 @@ package dao;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import entity.Hol;
 
@@ -38,14 +39,36 @@ public interface HolDao {
 	public boolean update(Hol hol, boolean changeStatus);
 
 	public Hol getHolByTime(Timestamp time, int userId);
-	
+
+	/**
+	 * insert Hol vào db không sử dụng transaction
+	 * 
+	 * @param hol
+	 * @return
+	 */
 	public boolean insert(Hol hol);
-	
+
 	/**
 	 * 
 	 * @param id
 	 * @return
 	 */
 	public boolean delete(long id);
+
+	/**
+	 * insert list Hol vào db có sử dụng transaction
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public boolean insertByTrans(Map<Long, Hol> map);
+	
+	/**
+	 * 
+	 * @param status
+	 * @param userId
+	 * @return
+	 */
+	public List<Hol> getListHolByStatus(boolean status, int userId);
 
 }

@@ -206,11 +206,12 @@
 							nghỉ phép</button>
 
 						<p id="txt-hol">
-							<span class="glyphicon glyphicon-group"></span> Đơn xin nghỉ phép
+							<span><i class="glyphicon glyphicon-group"></i></span> Đơn xin nghỉ phép
 							trong năm
 						</p>
-						<c:if test="${listHol.size() != 0 }">
-							<table class="table">
+						<c:choose>
+							<c:when test="${listHol.size() != 0 }">
+								<table class="table">
 								<tr>
 									<th>No.</th>
 									<th>Thời gian</th>
@@ -232,8 +233,7 @@
 												<c:choose>
 													<c:when test="${hol.end > now}">
 														<td>
-															<button type="button" class="btn btn-success btn-xs"
-																onclick="cencleHol(${hol.id})" >
+															<button type="button" class="btn btn-success btn-xs" onclick="cencleHol(${hol.id})" >
 																<img alt="Loading" src="${url }/images/loader.gif"
 																	class="hidden" id="loader2"> Cencle
 															</button>
@@ -274,8 +274,11 @@
 									<c:set var="no" value="${no + 1}"></c:set>
 								</c:forEach>
 							</table>
-						</c:if>
-
+							</c:when>
+							<c:otherwise>
+								<span class="text-success small">Bạn chưa nghỉ ngày nào. Hãy tiếp tục phát huy!</span>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>

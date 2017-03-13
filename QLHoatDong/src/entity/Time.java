@@ -12,8 +12,8 @@ import java.sql.Timestamp;
  * 
  */
 public class Time {
-	public Timestamp start;
-	public Timestamp end;
+	protected Timestamp start;
+	protected Timestamp end;
 
 	/**
 	 * @return the start

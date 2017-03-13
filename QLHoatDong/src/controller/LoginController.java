@@ -55,7 +55,7 @@ public class LoginController extends HttpServlet {
 		User user = userDao.getUserByEmail(email);
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);
-		
+
 		response.sendRedirect("index.htm");
 
 	}

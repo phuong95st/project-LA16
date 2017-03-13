@@ -86,7 +86,9 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 		return user;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see dao.UserDao#updateLastLogin(java.sql.Timestamp, int)
 	 */
 	@Override
@@ -101,7 +103,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 				ps.setInt(2, userId);
 
 				int result = ps.executeUpdate();
-				if(result != 0){
+				if (result != 0) {
 					return true;
 				}
 			} catch (SQLException e) {
@@ -112,6 +114,35 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
 		}
 		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.UserDao#getLastLogin(int)
+	 */
+	@Override
+	public Timestamp getLastLogin(int userId) {
+		if (connectToDB()) {
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT last_login FROM tbl_user WHERE user_id = ? ");
+
+			try {
+				ps = conn.prepareStatement(sql.toString());
+				ps.setInt(1, userId);
+
+				rs = ps.executeQuery();
+				if (rs.next()) {
+					return rs.getTimestamp(1);
+				}
+			} catch (SQLException e) {
+				System.out.println("Error: " + e.getMessage());
+			} finally {
+				close();
+			}
+
+		}
+		return null;
 	}
 
 }

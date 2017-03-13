@@ -15,4 +15,8 @@ public class Constant {
 	public static final String STATUS = "status";
 	public static final String DATA = "data"; 
 	public static final String ACTION = "action";
+	
+	public static final String DAY = "day";
+	public static final String MONTH = "month";
+	public static final String YEAR = "year";
 }

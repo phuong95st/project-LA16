@@ -35,4 +35,6 @@ public interface UserDao {
 	public User getUserByEmail(String email);
 	
 	public boolean updateLastLogin(Timestamp time, int userId);
+	
+	public Timestamp getLastLogin(int userId);
 }

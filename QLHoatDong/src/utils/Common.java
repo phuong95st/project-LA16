@@ -9,7 +9,8 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TimeZone;
 
 import entity.Hol;
@@ -177,54 +178,88 @@ public class Common {
 		calendar.setTimeInMillis(time.getTime());
 		return new SimpleDateFormat("HH:mm").format(calendar.getTime());
 	}
-	
-	public static String mapType(int type){
-		if(type == 1){
+
+	public static String mapType(int type) {
+		if (type == 1) {
 			return "Buổi sáng";
-		}else if(type == 2){
+		} else if (type == 2) {
 			return "Buổi chiều";
 		}
 		return "Cả ngày";
 	}
-	
-	public static String mappingTypeStudent(int typeStudent){
-		if(typeStudent == 1){
+
+	public static String mappingTypeStudent(int typeStudent) {
+		if (typeStudent == 1) {
 			return "Project 1: Nhập môn";
-		}else if(typeStudent == 2){
+		} else if (typeStudent == 2) {
 			return "Project 2: Phân tích và thiết kế HTTT";
-		}else if(typeStudent == 3){
+		} else if (typeStudent == 3) {
 			return "Project 3: Định hướng công nghệ";
 		}
 		return "Đồ án tốt nghiệp";
 	}
-	
+
 	/**
 	 * Lấy ngày trong chuỗi Timestamp
+	 * 
 	 * @param time
 	 * @return
 	 */
-	public static String getDay(Timestamp time){
+	public static String getDay(Timestamp time) {
 		Calendar calendar = Calendar.getInstance(TimeZone
 				.getTimeZone("Asia/Ho_Chi_Minh"));
 		calendar.setTimeInMillis(time.getTime());
 		return new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime());
 	}
-	
+
 	/**
 	 * 
 	 * @param status
 	 * @return
 	 */
-	public static String mappingStatus(boolean status){
-		if(status){
+	public static String mappingStatus(boolean status) {
+		if (status) {
 			return "OK";
 		}
 		return "NA";
 	}
 
+	/**
+	 * parse chuỗi ngày tháng dạng dd-MM-yyyy hoặc dd/MM/yyyy
+	 * 
+	 * @param time
+	 *            chuỗi thời gian
+	 * @return null nếu không thể parse được. Map nếu parse thành công
+	 */
+	public static Map<String, Integer> parseTime(String time) {
+		if (time == null) {
+			return null;
+		}
+		if (time.matches("^[0-9]{1,2}-[0-9]{1,2}-[0-9]{4}$")) {
+			String[] split = null;
+			split = time.split("-");
+			Map<String, Integer> map = new HashMap<>();
+			map.put(Constant.DAY, Integer.parseInt(split[0]));
+			map.put(Constant.MONTH, Integer.parseInt(split[1]));
+			map.put(Constant.YEAR, Integer.parseInt(split[2]));
+			return map;
+		}
+		if (time.matches("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$")) {
+			String[] split = null;
+			split = time.split("/");
+			Map<String, Integer> map = new HashMap<>();
+			map.put(Constant.DAY, Integer.parseInt(split[0]));
+			map.put(Constant.MONTH, Integer.parseInt(split[1]));
+			map.put(Constant.YEAR, Integer.parseInt(split[2]));
+			return map;
+		}
+		return null;
+	}
+
 	public static void main(String[] args) {
-		System.out.println(new GregorianCalendar(2017, 2, 8)
-				.compareTo(new GregorianCalendar(2017, 2, 8)) > 0);
+		Map<String, Integer> map = Common.parseTime("16-3-2017");
+		System.out.println(map.get(Constant.MONTH));
+		
 
 	}
 }
