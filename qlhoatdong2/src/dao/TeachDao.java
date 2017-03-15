@@ -28,4 +28,17 @@ public interface TeachDao {
 	 */
 	public List<Teach> getListTeach(Timestamp timeStart, Timestamp timeEnd,
 			int userId);
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Teach getTeachById(long id);
+	
+	/**
+	 * 
+	 * @param teach
+	 * @return
+	 */
+	public boolean update(Teach teach);
 }

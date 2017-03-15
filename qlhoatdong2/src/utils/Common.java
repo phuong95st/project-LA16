@@ -13,6 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
+import entity.Position;
+import entity.Teach;
+
 /**
  * 
  * @author nguyenhuuphuong
@@ -108,6 +111,17 @@ public class Common {
 	}
 
 	/**
+	 * Lấy thời gian hiện tại
+	 * 
+	 * @return đối tượng Timestamp là thời gian hiện tại
+	 */
+	public static Timestamp getNow() {
+		Calendar cal = Calendar.getInstance(TimeZone
+				.getTimeZone("Asia/Ho_Chi_Minh"));
+		return new Timestamp(cal.getTimeInMillis());
+	}
+
+	/**
 	 * Lấy thời gian kết thúc ngày hiện tại
 	 * 
 	 * @return đối tượng Timestamp là thời gian kêt thúc ngày hiện tại
@@ -162,17 +176,16 @@ public class Common {
 		calendar.setTimeInMillis(time.getTime());
 		return new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime());
 	}
-
+	
 	/**
-	 * 
-	 * @param status
-	 * @return
+	 * Lấy thứ dạng chuỗi
+	 * @param time Timestamp
+	 * @return thứ trong tuần dạng chuỗi
 	 */
-	public static String mappingStatus(boolean status) {
-		if (status) {
-			return "OK";
-		}
-		return "NA";
+	public static String getThu(Timestamp time){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(time.getTime());
+		return new SimpleDateFormat("E").format(calendar.getTime());
 	}
 
 	/**
@@ -206,11 +219,21 @@ public class Common {
 		}
 		return null;
 	}
+	
+	/**
+	 * Check vị trí của người dùng
+	 * @param teach
+	 * @param position
+	 * @return
+	 */
+	public static boolean checkPosition(Teach teach,Position position ){
+		System.out.println(((double)Math.round(teach.getPhong().getLatitude()*1000000)/1000000) + "<=" + position.getLatitude() + "<=" + (((double)Math.round(teach.getPhong().getLatitude() * 1000000)/ 1000000) + 0.000001));
+		System.out.println(((double) Math.round(teach.getPhong().getLongitude()*10000000)/10000000) + "<=" + position.getLongitude()+"<="+ (((double)Math.round((teach.getPhong().getLongitude())*10000000)/10000000)+ 0.0000001));
+		return (double)Math.round(teach.getPhong().getLatitude()*1000000)/1000000 <= position.getLatitude() && position.getLatitude() <= (((double)Math.round(teach.getPhong().getLatitude() * 1000000)/ 1000000) + 0.000001) && (double)Math.round(teach.getPhong().getLongitude()*10000000)/10000000 <= position.getLongitude() && position.getLongitude() <= (((double)Math.round((teach.getPhong().getLongitude())*10000000)/10000000)+ 0.0000001);
+	}
 
 	public static void main(String[] args) {
-		Map<String, Integer> map = Common.parseTime("16-3-2017");
-		System.out.println(map.get(Constant.MONTH));
-		
+		System.out.println(Common.encodeMD5("phuong1095"));
 
 	}
 }

@@ -21,6 +21,8 @@ public class User {
 	private String releasedEngine;
 	private String office;
 	private String research;
+	private boolean role;
+	private String name;
 
 	/**
 	 * @return the userId
@@ -185,6 +187,36 @@ public class User {
 	 */
 	public void setResearch(String research) {
 		this.research = research;
+	}
+
+	/**
+	 * @return the role
+	 */
+	public boolean isRole() {
+		return role;
+	}
+
+	/**
+	 * @param role
+	 *            the role to set
+	 */
+	public void setRole(boolean role) {
+		this.role = role;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

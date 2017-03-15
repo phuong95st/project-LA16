@@ -61,7 +61,7 @@ footer {
 	height: auto;
 	
 }*/
-#wellcome,#envent, #late {
+#wellcome,#stuCal, #late {
 	margin-top: 10pt;
 	width: 100%;
 	height: auto;
@@ -77,17 +77,13 @@ footer {
 	font-weight: bold;
 }
 
-#OnlCal,#stuCal,#teach,#holDay, .subContent {
+#OnlCal,#teach, .subContent {
 	margin: 10pt 11pt;
 	width: 97%;
 	height: auto;
 	border: solid 1px gray;
 	padding: 5pt;
 	background-color: #F1F5F8
-}
-
-#txt-hol {
-	margin-top: 8pt;
 }
 
 #lbl-menu {

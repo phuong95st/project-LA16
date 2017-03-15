@@ -13,25 +13,53 @@ public class Onl extends Time {
 	private int caTruc;
 	private long id;
 	private User user;
+	private boolean hol;
+	private boolean late;
+	private int lateMin;
+	private String reason;
+
+	
 
 	/**
-	 * 
+	 * @return the late
 	 */
-	public Onl() {
-		super();
-		// TODO Auto-generated constructor stub
+	public boolean isLate() {
+		return late;
 	}
 
 	/**
-	 * @param caTruc
-	 * @param id
-	 * @param user
+	 * @param late the late to set
 	 */
-	public Onl(int caTruc, long id, User user) {
-		super();
-		this.caTruc = caTruc;
-		this.id = id;
-		this.user = user;
+	public void setLate(boolean late) {
+		this.late = late;
+	}
+
+	/**
+	 * @return the lateMin
+	 */
+	public int getLateMin() {
+		return lateMin;
+	}
+
+	/**
+	 * @param lateMin the lateMin to set
+	 */
+	public void setLateMin(int lateMin) {
+		this.lateMin = lateMin;
+	}
+
+	/**
+	 * @return the reason
+	 */
+	public String getReason() {
+		return reason;
+	}
+
+	/**
+	 * @param reason the reason to set
+	 */
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 
 	/**
@@ -77,6 +105,21 @@ public class Onl extends Time {
 	 */
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	/**
+	 * @return the hol
+	 */
+	public boolean isHol() {
+		return hol;
+	}
+
+	/**
+	 * @param hol
+	 *            the hol to set
+	 */
+	public void setHol(boolean hol) {
+		this.hol = hol;
 	}
 
 }

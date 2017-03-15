@@ -27,7 +27,6 @@
 		});
 	});
 </script>
-<script type="text/javascript" src="${url }/js/javascript.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -40,7 +39,7 @@
 				<div class="col-sm-10 text-left" id="all_content">
 					<div class="col-sm-9">
 						<div id="wellcome">Chúc bạn 1 ngày làm việc hiệu quả.</div>
-						<c:if test="${sessionScope.rangeMin != null }">
+						<!--<c:if test="${sessionScope.rangeMin != null }">
 							<div id="late">
 								<span class="text-danger small"> Bạn đã đi muộn <b>${rangeMin }</b>
 									phút. Hãy nhập lý do!
@@ -59,33 +58,35 @@
 									<div style="clear: both"></div>
 								</div>
 							</div>
-						</c:if>
-						<div id="envent">
-							Các sự kiện sẽ diễn ra trong tuần
+						</c:if>-->
+						<div id="stuCal" class="table-responsive">
+							Lịch gặp sinh viên hôm nay
 							<c:choose>
-								<c:when test="${lisEvents.size() == 0 }">
-									<br>
-									<div class="alert alert-danger small">Không có sự kiện
-										nào trong tuần</div>
+								<c:when test="${lisScheStus.size() == 0 }">
+									<div class="alert alert-danger small">Không có lịch gặp
+										nào</div>
 								</c:when>
 								<c:otherwise>
-									<table class="table">
+									<table class="table table-condensed">
 										<tr>
-											<th>Tên</th>
+											<th>No.</th>
 											<th>Thời gian</th>
-											<th>Địa điểm</th>
-											<th>Loại</th>
-											<th>Nội dung</th>
+											<th>Loại sinh viên</th>
+											<th></th>
 										</tr>
-										<c:forEach items="${lisEvents }" var="envent">
-											<tr class="small">
-												<td>${envent.title }</td>
-												<td>${envent.start }</td>
-												<td>${envent.place }</td>
-												<td>${envent.type.typeName }</td>
-												<td>${envent.content }</td>
+										<c:set var="no" value="1" />
+										<c:forEach items="${lisScheStus}" var="scheStu">
+											<tr>
+												<td>${no }</td>
+												<td>${my:getHour(scheStu.start) }-
+													${my:getHour(scheStu.end) }</td>
+												<td>${my:mappingTypeStudent(scheStu.type) }</td>
+												<td><button class="btn btn-success btn-xs">Chi
+														tiết</button></td>
 											</tr>
+											<c:set var="no" value="${no + 1}"></c:set>
 										</c:forEach>
+
 									</table>
 								</c:otherwise>
 							</c:choose>
@@ -101,33 +102,51 @@
 							obj.clockfile = "0009-magenta.swf";
 							obj.TimeZone = "ICT";
 
-							obj.width = 200;
-							obj.height = 200;
+							obj.width = "auto";
+							obj.height = "auto";
 
 							obj.wmode = "transparent";
 							showClock(obj);
 						</script>
 					</div>
-					<div id="OnlCal" class="col-sm-12">
-						Lịch trực bộ môn ngày hôm nay
+					<div id="OnlCal" class="col-sm-12 table-responsive">
+						Lịch trực bộ môn hôm nay
 						<c:choose>
 							<c:when test="${lisOnls.size() == 0 }">
 								<div class="alert alert-danger small">Không có lịch trực
-									tuần này</div>
+									hôm nay</div>
 							</c:when>
 							<c:otherwise>
-								<table class="table">
+								<table class="table table-condensed">
 									<tr>
-										<th>STT</th>
+										<th>No.</th>
+										<th>Thứ</th>
 										<th>Thời gian</th>
+										<th>Ngày</th>
 										<th>Ca trực</th>
+										<th></th>
 									</tr>
 									<c:set var="no" value="1" />
 									<c:forEach items="${lisOnls}" var="onl">
 										<tr>
 											<td>${no }</td>
-											<td>${my:getHour(onl.start) }-${my:getHour(onl.end) }</td>
+											<td>${my:getThu(onl.start) }</td>
+											<td>${my:getHour(onl.start) }- ${my:getHour(onl.end) }</td>
+											<td>${my:getDay(onl.start) }</td>
 											<td>${my:mapType(onl.caTruc) }</td>
+											<c:choose>
+												<c:when test="${onl.hol && onl.end < now}">
+													<td class="text-danger">Bạn đã không trực</td>
+												</c:when>
+												<c:when test="${onl.late}">
+													<td class="text-danger">Bạn đã giao ban muộn
+														${onl.lateMin} phút</td>
+												</c:when>
+												<c:otherwise>
+													<td><button class="btn btn-info btn-xs">Nhận
+															giao ban</button></td>
+												</c:otherwise>
+											</c:choose>
 										</tr>
 										<c:set var="no" value="${no + 1}"></c:set>
 									</c:forEach>
@@ -137,45 +156,15 @@
 
 					</div>
 
-					<div id="stuCal" class="col-sm-12">
-						Lịch gặp sinh viên hôm nay
-						<c:choose>
-							<c:when test="${lisScheStus.size() == 0 }">
-								<div class="alert alert-danger small">Không có lịch gặp
-									nào</div>
-							</c:when>
-							<c:otherwise>
-								<table class="table">
-									<tr>
-										<th>No.</th>
-										<th>Thời gian</th>
-										<th>Loại sinh viên</th>
-									</tr>
-									<c:set var="no" value="1" />
-									<c:forEach items="${lisScheStus}" var="scheStu">
-										<tr>
-											<td>${no }</td>
-											<td>${my:getHour(scheStu.start) }-
-												${my:getHour(scheStu.end) }</td>
-											<td>${my:mappingTypeStudent(scheStu.type) }</td>
-										</tr>
-										<c:set var="no" value="${no + 1}"></c:set>
-									</c:forEach>
-
-								</table>
-							</c:otherwise>
-						</c:choose>
-					</div>
-
-					<div id="teach" class="col-sm-12">
-						Lịch giảng dạy hôm nay của bạn
+					<div id="teach" class="col-sm-12 table-responsive">
+						Lịch giảng dạy hôm nay
 						<c:choose>
 							<c:when test="${listTeachs.size() == 0 }">
 								<div class="alert alert-danger small">Bạn không có lịch
 									dạy nào ngày hôm nay</div>
 							</c:when>
 							<c:otherwise>
-								<table class="table">
+								<table class="table table-condensed">
 									<tr>
 										<th>No.</th>
 										<th>Thời gian</th>
@@ -183,100 +172,49 @@
 										<th>Mã lớp</th>
 										<th>Mã môn học</th>
 										<th>Tên môn học</th>
+										<th></th>
 									</tr>
 									<c:set var="no" value="1" />
 									<c:forEach items="${listTeachs }" var="teach">
 										<tr>
 											<td>${no }</td>
 											<td>${my:getHour(teach.start) }-${my:getHour(teach.end) }</td>
-											<td>${teach.phong }</td>
+											<td>${teach.phong.key }</td>
 											<td>${teach.codeClass }</td>
 											<td>${teach.codeSubject }</td>
 											<td>${teach.name }</td>
+											<c:choose>
+												<c:when test="${teach.hol && teach.end < now}">
+													<td class="text-danger">Bạn đã không dạy</td>
+												</c:when>
+												<c:when test="${teach.late}">
+													<td >
+														<span class="text-danger small" style="padding-left: 11pt;">Bạn đã đến muộn <b>${teach.lateMin}</b> phút</span>
+														<c:if test="${teach.reason == null || teach.reason == '' }">
+															<div>
+																<p class="col-sm-10">
+																	<input type="text" placeholder="Nhập lý do ..." class="form-control" name="reason">
+																</p>
+																<button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button>
+																<div style="clear: both"></div>
+															</div>
+														</c:if>	
+													</td>	
+												</c:when>
+												<c:when test="${!teach.hol && teach.end > now}">
+													<td class="text-success">Good!</td>
+												</c:when>
+												<c:otherwise>
+													<td>
+														<img alt="Loading" src="${url }/images/loader.gif" id="loader1" class="hidden">
+														<button class="btn btn-info btn-xs" onclick="javascript:clickTeach(${teach.teachId}) ">Tôi có mặt</button>
+													</td>
+												</c:otherwise>
+											</c:choose>
 										</tr>
 										<c:set var="no" value="${no + 1}"></c:set>
 									</c:forEach>
 								</table>
-							</c:otherwise>
-						</c:choose>
-					</div>
-
-					<div id="holDay" class="col-sm-12">
-						<button type="button" class="btn btn-primary" onclick="window.location.href='holiday.htm?action=addHol'">Đăng ký
-							nghỉ phép</button>
-
-						<p id="txt-hol">
-							<span><i class="glyphicon glyphicon-group"></i></span> Đơn xin nghỉ phép
-							trong năm
-						</p>
-						<c:choose>
-							<c:when test="${listHol.size() != 0 }">
-								<table class="table">
-								<tr>
-									<th>No.</th>
-									<th>Thời gian</th>
-									<th>Loại</th>
-									<th>Lý do</th>
-									<th>Trạng thái</th>
-									<th>Action</th>
-								</tr>
-								<c:set var="no" value="1" />
-								<c:forEach items="${listHol }" var="hol">
-									<c:choose>
-										<c:when test="${hol.phep && !hol.status}">
-											<tr>
-												<td>${no }</td>
-												<td>${my:getDay(hol.start) }-${my:getDay(hol.end) }</td>
-												<td>${my:mapType(hol.type) }</td>
-												<td>${hol.reason }</td>
-												<td>${my:mappingStatus(hol.status) }</td>
-												<c:choose>
-													<c:when test="${hol.end > now}">
-														<td>
-															<button type="button" class="btn btn-success btn-xs" onclick="cencleHol(${hol.id})" >
-																<img alt="Loading" src="${url }/images/loader.gif"
-																	class="hidden" id="loader2"> Cencle
-															</button>
-															<button type="button" class="btn btn-info btn-xs">
-																<img alt="Loading" src="${url }/images/loader.gif"
-																	class="hidden" id="loader3"> Update
-															</button>
-														</td>
-													</c:when>
-													<c:otherwise>
-														<td></td>
-													</c:otherwise>
-												</c:choose>
-											</tr>
-										</c:when>
-										<c:when test="${hol.phep && hol.status}">
-											<tr class="text-success">
-												<td>${no }</td>
-												<td>${my:getDay(hol.start) }-${my:getDay(hol.end) }</td>
-												<td>${my:mapType(hol.type) }</td>
-												<td>${hol.reason }</td>
-												<td>${my:mappingStatus(hol.status) }</td>
-												<td></td>
-											</tr>
-										</c:when>
-										<c:otherwise>
-											<tr class="text-danger">
-												<td>${no }</td>
-												<td>${my:getDay(hol.start) }-${my:getDay(hol.end) }</td>
-												<td>${my:mapType(hol.type) }</td>
-												<td>${hol.reason }</td>
-												<td>${my:mappingStatus(hol.status) }</td>
-												<td></td>
-											</tr>
-										</c:otherwise>
-									</c:choose>
-
-									<c:set var="no" value="${no + 1}"></c:set>
-								</c:forEach>
-							</table>
-							</c:when>
-							<c:otherwise>
-								<span class="text-success small">Bạn chưa nghỉ ngày nào. Hãy tiếp tục phát huy!</span>
 							</c:otherwise>
 						</c:choose>
 					</div>

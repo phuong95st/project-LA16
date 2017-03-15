@@ -17,6 +17,55 @@ public class Teach extends Time {
 	private String name;
 	private User user;
 	private boolean hol;
+	private Position phong;
+	private boolean late;
+	private int lateMin;
+	private String reason;
+
+	/**
+	 * @return the late
+	 */
+	public boolean isLate() {
+		return late;
+	}
+
+	/**
+	 * @param late
+	 *            the late to set
+	 */
+	public void setLate(boolean late) {
+		this.late = late;
+	}
+
+	/**
+	 * @return the lateMin
+	 */
+	public int getLateMin() {
+		return lateMin;
+	}
+
+	/**
+	 * @param lateMin
+	 *            the lateMin to set
+	 */
+	public void setLateMin(int lateMin) {
+		this.lateMin = lateMin;
+	}
+
+	/**
+	 * @return the reason
+	 */
+	public String getReason() {
+		return reason;
+	}
+
+	/**
+	 * @param reason
+	 *            the reason to set
+	 */
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
 
 	/**
 	 * @return the teachId
@@ -121,6 +170,21 @@ public class Teach extends Time {
 	 */
 	public void setHol(boolean hol) {
 		this.hol = hol;
+	}
+
+	/**
+	 * @return the phong
+	 */
+	public Position getPhong() {
+		return phong;
+	}
+
+	/**
+	 * @param phong
+	 *            the phong to set
+	 */
+	public void setPhong(Position phong) {
+		this.phong = phong;
 	}
 
 }

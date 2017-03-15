@@ -74,11 +74,9 @@
 							</td>
 						</tr>
 						<tbody id="include">
-							<jsp:include page="load/row_add_hol.jsp"></jsp:include>
 						</tbody>	
 					</table>
 					<span id="btnRegister">
-						<jsp:include page="load/btn_register.jsp"></jsp:include>
 					</span>
 				</div>
 			</div>

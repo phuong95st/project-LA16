@@ -9,9 +9,10 @@ package entity;
  * @author nguyenhuuphuong
  * 
  */
-public class ScheStu extends Time{
+public class ScheStu extends Time {
 	private int id;
-	private Student student;
+	private int type;
+	private User user;
 
 	/**
 	 * 
@@ -23,12 +24,14 @@ public class ScheStu extends Time{
 
 	/**
 	 * @param id
-	 * @param student
+	 * @param type
+	 * @param user
 	 */
-	public ScheStu(int id, Student student) {
+	public ScheStu(int id, int type, User user) {
 		super();
 		this.id = id;
-		this.student = student;
+		this.type = type;
+		this.user = user;
 	}
 
 	/**
@@ -47,18 +50,33 @@ public class ScheStu extends Time{
 	}
 
 	/**
-	 * @return the student
+	 * @return the user
 	 */
-	public Student getStudent() {
-		return student;
+	public User getUser() {
+		return user;
 	}
 
 	/**
-	 * @param student
-	 *            the student to set
+	 * @param user
+	 *            the user to set
 	 */
-	public void setStudent(Student student) {
-		this.student = student;
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public int getType() {
+		return type;
+	}
+
+	/**
+	 * @param type
+	 *            the type to set
+	 */
+	public void setType(int type) {
+		this.type = type;
 	}
 
 }
