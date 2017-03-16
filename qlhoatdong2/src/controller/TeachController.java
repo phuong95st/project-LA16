@@ -18,7 +18,6 @@ import utils.Constant;
 import utils.MessageProperties;
 import dao.TeachDao;
 import dao.impl.TeachDaoImpl;
-import entity.Position;
 import entity.Teach;
 
 /**
@@ -51,6 +50,7 @@ public class TeachController extends HttpServlet {
 			Teach teach = teachDao.getTeachById(id);
 			JSONObject jsonObject = new JSONObject();
 			ServletOutputStream out = response.getOutputStream();
+			// check vị trí
 //			if(!Common.checkPosition(teach, new Position("",latitude,longitude))){
 //				String error = MessageProperties.getData("ERR09");
 //				jsonObject.put(Constant.STATUS, false);
@@ -75,6 +75,14 @@ public class TeachController extends HttpServlet {
 				session.setAttribute("lateMin", lateMin);
 				teach.setLate(true);
 				teach.setLateMin(lateMin);
+			}else if(now.compareTo(teach.getEnd()) > 0){
+				String error = MessageProperties.getData("ERR11");
+				jsonObject.put(Constant.STATUS, false);
+				jsonObject.put("flagHol", true);
+				jsonObject.put(Constant.DATA, error);
+				out.write(jsonObject.toJSONString().getBytes());
+				out.flush();
+				return;
 			}
 			// thay đổi trạng thái của bản ghi 
 			teach.setHol(false);

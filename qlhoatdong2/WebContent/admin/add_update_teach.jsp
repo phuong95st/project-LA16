@@ -5,12 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Quản lý lịch giảng</title>
-<jsp:include page="head.jsp"></jsp:include>
+<jsp:include page="../jsp/head.jsp"></jsp:include>
 </head>
 <body>
 	<div class="container">
 		<!-- Header -->
-		<jsp:include page="header.jsp"></jsp:include>
+		<jsp:include page="../jsp/header.jsp"></jsp:include>
 		<div class="container text-center">
 			<div class="row content" id="content">
 				<!-- slidebar -->
@@ -116,7 +116,7 @@
 			</div>
 		</div>
 		<!-- footer -->
-		<jsp:include page="footer.jsp"></jsp:include>
+		<jsp:include page="../jsp/footer.jsp"></jsp:include>
 	</div>
 </body>
 </html>

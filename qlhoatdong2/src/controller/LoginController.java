@@ -19,7 +19,7 @@ import validate.ValidateUser;
 /**
  * Servlet implementation class LoginController
  */
-@WebServlet("/jsp/login.htm")
+@WebServlet("/jsp/login.do")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -56,7 +56,7 @@ public class LoginController extends HttpServlet {
 		User user = userDao.getUserByEmail(email);
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);
-
+		
 		response.sendRedirect("index.htm");
 
 	}

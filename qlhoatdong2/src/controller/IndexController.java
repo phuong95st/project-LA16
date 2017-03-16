@@ -35,6 +35,11 @@ public class IndexController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
+		
+		if(user.isRole()){
+			request.getRequestDispatcher("/admin/index.jsp").forward(request, response);
+			return;
+		}
 
 		// Lấy danh sách lịch trực trong ngày
 		List<Onl> lisOnls = new OnlDaoImpl().getListOnl(Common.getStartNow(), Common.getEndNow(), user.getUserId());

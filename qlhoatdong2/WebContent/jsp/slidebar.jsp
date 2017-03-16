@@ -12,22 +12,20 @@
 				<li class="active"><a>Home</a></li>
 			</c:when>
 			<c:otherwise>
-				<li><a href="index.htm">Home</a></li>
+				<li><a href="index.htm">Home <span class="glyphicon glyphicon-chevron-right small"></a></li>
 			</c:otherwise>
 		</c:choose>
-		<li><a href="#">Xem lịch giảng dạy</a></li>
+		<li><a href="#">Xem lịch giảng dạy <span class="glyphicon glyphicon-chevron-right small"></span></a></li>
+		<li><a href="#">Lịch trực bộ môn <span class="glyphicon glyphicon-chevron-right small"></a></li>
+		<li><a href="#">Quản lý gặp sinh viên <span class="glyphicon glyphicon-chevron-right small"></a></li>
+		<li><a href="#">Tìm kiếm <span class="glyphicon glyphicon-chevron-right small"></a></li>
 		<c:choose>
-			<c:when test="${action == 'addHol' }">
-				<li class="active"><a>Quản lý nghỉ phép</a></li>
+			<c:when test="${action == 'my_position' }">
+				<li class="active"><a>Vị trí của tôi</a></li>
 			</c:when>
 			<c:otherwise>
-				<li><a href="#">Quản lý nghỉ phép</a></li>
+				<li><a href="my_position.htm">Vị trí của tôi <span class="glyphicon glyphicon-chevron-right small"></a></li>
 			</c:otherwise>
 		</c:choose>
-		<li><a href="#">Xem sự kiện</a></li>
-		<li><a href="#">Những ngày nghỉ</a></li>
-		<li><a href="#">Các cuộc họp tham dự</a></li>
-		<li><a href="#">Lịch trực bộ môn</a></li>
-		<li><a href="#">Quản lý gặp sinh viên</a></li>
 	</ul>
 </div>

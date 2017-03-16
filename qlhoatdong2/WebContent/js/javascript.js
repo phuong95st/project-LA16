@@ -21,21 +21,26 @@ function clickTeach(id) {
 					success: function(data){
 						result = $.parseJSON(data);
 						if(!result["status"]){
-							$("#loader1").addClass("hidden");
-							$.bootstrapGrowl(result["data"], {
-								ele : 'body', // which element to append to
-								type : 'danger', // (null, 'info', 'danger', 'success')
-								offset : {
-									from : 'top',
-									amount : 20
-								}, // 'top', or 'bottom'
-								align : 'center', // ('left', 'right', or 'center')
-								width : "auto", // (integer, or 'auto')
-								delay : 5000, // Time while the message will be displayed.
-								// It's not equivalent to the *demo* timeOut!
-								allow_dismiss : true, // If true then will display a cross to close the popup.
-								stackup_spacing : 10 // spacing between consecutively stacked growls.
-							});
+							if(result["flagHol"]){
+								alert(result["data"]);
+								window.location.reload();
+							}else{
+								$("#loader1").addClass("hidden");
+								$.bootstrapGrowl(result["data"], {
+									ele : 'body', // which element to append to
+									type : 'danger', // (null, 'info', 'danger', 'success')
+									offset : {
+										from : 'top',
+										amount : 20
+									}, // 'top', or 'bottom'
+									align : 'center', // ('left', 'right', or 'center')
+									width : "auto", // (integer, or 'auto')
+									delay : 5000, // Time while the message will be displayed.
+									// It's not equivalent to the *demo* timeOut!
+									allow_dismiss : true, // If true then will display a cross to close the popup.
+									stackup_spacing : 10 // spacing between consecutively stacked growls.
+								});
+							}
 						}else{
 							alert(result["data"]);
 							window.location.reload();

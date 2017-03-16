@@ -31,7 +31,7 @@
 			<c:forEach items="${requestScope.listError }" var="error">
 				<p style="color: red; font-size: small;">${error }</p>
 			</c:forEach>
-			<form class="form-horizontal" action="login.htm" method="post">
+			<form class="form-horizontal" action="login.do" method="post">
 				<div class="form-group">
 					<label class="control-label col-sm-3" for="email">Email:</label>
 					<div class="col-sm-9">
