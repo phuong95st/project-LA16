@@ -16,18 +16,13 @@ import entity.Teach;
  */
 public interface TeachDao {
 	/**
-	 * Lấy danh sách lịch giảng trong khoảng thời gian
 	 * 
-	 * @param timeStart
-	 *            thời gian bắt đầu
-	 * @param timeEnd
-	 *            thời gian kết thúc
+	 * @param now
+	 * @param hocKy
 	 * @param userId
-	 *            id nhân viên
-	 * @return List các đối tượng Teach
+	 * @return
 	 */
-	public List<Teach> getListTeach(Timestamp timeStart, Timestamp timeEnd,
-			int userId);
+	public List<Teach> getListTeach(Timestamp now, String hocKy, int userId);
 	/**
 	 * 
 	 * @param id

@@ -14,6 +14,30 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
 -->
 <script>
 	$(document).ready(function() {
+		var typeMap = google.maps.MapTypeId.ROADMAP;
+		var value = $("#typeMap").find(":selected").val();
+		if(value == "ROADMAP"){
+			typeMap = google.maps.MapTypeId.ROADMAP;
+		}else if(value == "SATELLITE"){
+			typeMap = google.maps.MapTypeId.SATELLITE;
+		}else if(value == "HYBRID"){
+			typeMap = google.maps.MapTypeId.HYBRID;
+		}else{
+			typeMap = google.maps.MapTypeId.TERRAIN;
+		}	
+		$("#typeMap").change(function(){
+			value = $(this).find(":selected").val();
+			if(value == "ROADMAP"){
+				typeMap = google.maps.MapTypeId.ROADMAP;
+			}else if(value == "SATELLITE"){
+				typeMap = google.maps.MapTypeId.SATELLITE;
+			}else if(value == "HYBRID"){
+				typeMap = google.maps.MapTypeId.HYBRID;
+			}else{
+				typeMap = google.maps.MapTypeId.TERRAIN;
+			}
+			getLocation();
+		});
 		function getLocation() {
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -46,20 +70,16 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
 
 			var myOptions = {
 				center : latlon,
-				zoom : 14,
-				mapTypeId : google.maps.MapTypeId.ROADMAP,
-				mapTypeControl : false,
-				navigationControlOptions : {
-					style : google.maps.NavigationControlStyle.SMALL
-				}
-			}
+				zoom : 18,
+				mapTypeId : typeMap
+			};
 
-			var map = new google.maps.Map(document.getElementById("myPositionMap"),
-					myOptions);
+			var map = new google.maps.Map(mapholder,myOptions);
 			var marker = new google.maps.Marker({
 				position : latlon,
+				animation: google.maps.Animation.BOUNCE,
 				map : map,
-				title : "You are here!"
+				title : "You are here!(latitude: "+lat+", longitude: "+lon+")"
 			});
 		}
 		getLocation();
@@ -84,15 +104,17 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
 								<td>Chọn loại bản đồ:</td>
 								<td><select class="selectpicker" data-width="fit"
 									id="typeMap">
-										<option value="ROADMAP">Mặc định</option>
+										<option value="ROADMAP" selected="selected">Mặc định</option>
 										<option value="SATELLITE">Hình ảnh</option>
 										<option value="HYBRID">Hình ảnh và tên thành phố</option>
 										<option value="TERRAIN">Sông và núi</option>
 								</select></td>
 							</tr>
 						</table>
-						<div id="myPositionMap" style="width: 400pt; height: 300pt;clear: both">
+						<div>
+							<div id="myPositionMap"  style="position: relative; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);">
 
+							</div>
 						</div>
 					</div>
 				</div>

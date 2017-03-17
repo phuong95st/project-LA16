@@ -108,3 +108,11 @@ footer {
 .red{
 	color: red;
 }
+
+#myPositionMap{
+  margin: 20px 0;
+  padding: 0;
+  height: 300px;
+  float: left;
+  width: 100%;
+}

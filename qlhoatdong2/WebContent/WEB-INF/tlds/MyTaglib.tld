@@ -5,10 +5,10 @@
 	<short-name>MyTaglib</short-name>
 	<uri>/WEBINF/tlds/MyTaglib</uri>
 	<function>
-		<description>Lấy giờ trong chuỗi Timestamp</description>
+		<description>Lấy giờ trong chuỗi ngày tháng</description>
 		<name>getHour</name>
 		<function-class>utils.Common</function-class>
-		<function-signature>java.lang.String getHour (java.sql.Timestamp)
+		<function-signature>java.lang.String getHour (java.util.Date)
 		</function-signature>
 	</function>
 	<function>
@@ -26,10 +26,10 @@
 		</function-signature>
 	</function>
 	<function>
-		<description>Lấy ngày trong chuỗi Timestamp</description>
+		<description>Lấy ngày trong chuỗi ngày tháng</description>
 		<name>getDay</name>
 		<function-class>utils.Common</function-class>
-		<function-signature>java.lang.String getDay (java.sql.Timestamp)
+		<function-signature>java.lang.String getDay (java.util.Date)
 		</function-signature>
 	</function>
 	<function>

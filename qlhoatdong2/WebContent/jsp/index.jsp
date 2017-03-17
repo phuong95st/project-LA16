@@ -159,7 +159,7 @@
 					<div id="teach" class="col-sm-12 table-responsive">
 						Lịch giảng dạy hôm nay
 						<c:choose>
-							<c:when test="${listTeachs.size() == 0 }">
+							<c:when test="${listTeachInfo.size() == 0 }">
 								<div class="alert alert-danger small">Bạn không có lịch
 									dạy nào ngày hôm nay</div>
 							</c:when>
@@ -175,39 +175,41 @@
 										<th></th>
 									</tr>
 									<c:set var="no" value="1" />
-									<c:forEach items="${listTeachs }" var="teach">
+									<c:forEach items="${listTeachInfo }" var="teachInfo">
 										<tr>
 											<td>${no }</td>
-											<td>${my:getHour(teach.start) }-${my:getHour(teach.end) }</td>
-											<td>${teach.phong.key }</td>
-											<td>${teach.codeClass }</td>
-											<td>${teach.codeSubject }</td>
-											<td>${teach.name }</td>
+											<td>${my:getHour(teachInfo.teach.timeStart) }-${my:getHour(teachInfo.teach.timeEnd) }</td>
+											<td>${teachInfo.teach.phong.key }</td>
+											<td>${teachInfo.teach.codeClass }</td>
+											<td>${teachInfo.teach.codeSubject }</td>
+											<td>${teachInfo.teach.name }</td>
 											<c:choose>
-												<c:when test="${teach.hol && teach.end < now}">
+												<c:when test="${teachInfo.hol && (teachInfo.teach.timeEnd < now)}">
 													<td class="text-danger">Bạn đã không dạy</td>
 												</c:when>
-												<c:when test="${teach.late}">
+												<c:when test="${teachInfo.late}">
 													<td >
-														<span class="text-danger small" style="padding-left: 11pt;">Bạn đã đến muộn <b>${teach.lateMin}</b> phút</span>
-														<c:if test="${teach.reason == null || teach.reason == '' }">
-															<div>
-																<p class="col-sm-10">
-																	<input type="text" placeholder="Nhập lý do ..." class="form-control" name="reason">
-																</p>
-																<button class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button>
+														<span class="text-danger small" style="padding-left: 11pt;"><img alt="Loading" src="${url }/images/loader.gif" id="loader2" class="hidden" width="10pt" height="10pt"> Bạn đã đến muộn <b>${teachInfo.lateMin}</b> phút</span>
+														<c:choose>
+															<c:when test="${teachInfo.reason == null || teachInfo.reason == '' }">
+																<div>
+																	<p class="col-sm-10">
+																		<input type="text" placeholder="Nhập lý do ..." class="form-control" name="reason">
+																	</p>
+																	<button class="btn btn-warning" onclick="javascript:addReason(${teachInfo.id})"><span class="glyphicon glyphicon-edit"></span></button>
 																<div style="clear: both"></div>
 															</div>
-														</c:if>	
+															</c:when>
+														</c:choose>		
 													</td>	
 												</c:when>
-												<c:when test="${!teach.hol && teach.end > now}">
+												<c:when test="${!teachInfo.hol && teachInfo.teach.timeStart >= now}">
 													<td class="text-success">Good!</td>
 												</c:when>
 												<c:otherwise>
 													<td>
 														<img alt="Loading" src="${url }/images/loader.gif" id="loader1" class="hidden">
-														<button class="btn btn-info btn-xs" onclick="javascript:clickTeach(${teach.teachId}) ">Tôi có mặt</button>
+														<button class="btn btn-info btn-xs" onclick="javascript:clickTeach(${teachInfo.teach.teachId}) ">Tôi có mặt</button>
 													</td>
 												</c:otherwise>
 											</c:choose>

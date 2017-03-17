@@ -9,7 +9,7 @@ package entity;
  * @author nguyenhuuphuong
  * 
  */
-public class Week {
+public class Week extends Time{
 	private int weekId;
 	private int weekCount;
 

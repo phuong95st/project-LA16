@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
@@ -137,7 +138,7 @@ public class Common {
 		return new Timestamp(cal.getTimeInMillis());
 	}
 
-	public static String getHour(Timestamp time) {
+	public static String getHour(Date time) {
 		Calendar calendar = Calendar.getInstance(TimeZone
 				.getTimeZone("Asia/Ho_Chi_Minh"));
 		calendar.setTimeInMillis(time.getTime());
@@ -170,7 +171,7 @@ public class Common {
 	 * @param time
 	 * @return
 	 */
-	public static String getDay(Timestamp time) {
+	public static String getDay(Date time) {
 		Calendar calendar = Calendar.getInstance(TimeZone
 				.getTimeZone("Asia/Ho_Chi_Minh"));
 		calendar.setTimeInMillis(time.getTime());

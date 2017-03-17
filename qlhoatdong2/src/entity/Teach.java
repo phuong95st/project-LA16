@@ -9,62 +9,93 @@ package entity;
  * @author nguyenhuuphuong
  * 
  */
-public class Teach extends Time {
+public class Teach {
 	private long teachId;
-	private Week week;
+	private int dateOfWeek;
+	private java.sql.Time timeStart;
+	private java.sql.Time timeEnd;
 	private String codeClass;
 	private String codeSubject;
 	private String name;
 	private User user;
-	private boolean hol;
 	private Position phong;
-	private boolean late;
-	private int lateMin;
-	private String reason;
+	private Week weekStart;
+	private Week weekEnd;
+	private String hocKy;
 
 	/**
-	 * @return the late
+	 * @return the timeStart
 	 */
-	public boolean isLate() {
-		return late;
+	public java.sql.Time getTimeStart() {
+		return timeStart;
 	}
 
 	/**
-	 * @param late
-	 *            the late to set
+	 * @param timeStart
+	 *            the timeStart to set
 	 */
-	public void setLate(boolean late) {
-		this.late = late;
+	public void setTimeStart(java.sql.Time timeStart) {
+		this.timeStart = timeStart;
 	}
 
 	/**
-	 * @return the lateMin
+	 * @return the timeEnd
 	 */
-	public int getLateMin() {
-		return lateMin;
+	public java.sql.Time getTimeEnd() {
+		return timeEnd;
 	}
 
 	/**
-	 * @param lateMin
-	 *            the lateMin to set
+	 * @param timeEnd
+	 *            the timeEnd to set
 	 */
-	public void setLateMin(int lateMin) {
-		this.lateMin = lateMin;
+	public void setTimeEnd(java.sql.Time timeEnd) {
+		this.timeEnd = timeEnd;
 	}
 
 	/**
-	 * @return the reason
+	 * @return the dateOfWeek
 	 */
-	public String getReason() {
-		return reason;
+	public int getDateOfWeek() {
+		return dateOfWeek;
 	}
 
 	/**
-	 * @param reason
-	 *            the reason to set
+	 * @param dateOfWeek
+	 *            the dateOfWeek to set
 	 */
-	public void setReason(String reason) {
-		this.reason = reason;
+	public void setDateOfWeek(int dateOfWeek) {
+		this.dateOfWeek = dateOfWeek;
+	}
+
+	/**
+	 * @return the weekStart
+	 */
+	public Week getWeekStart() {
+		return weekStart;
+	}
+
+	/**
+	 * @param weekStart
+	 *            the weekStart to set
+	 */
+	public void setWeekStart(Week weekStart) {
+		this.weekStart = weekStart;
+	}
+
+	/**
+	 * @return the weekEnd
+	 */
+	public Week getWeekEnd() {
+		return weekEnd;
+	}
+
+	/**
+	 * @param weekEnd
+	 *            the weekEnd to set
+	 */
+	public void setWeekEnd(Week weekEnd) {
+		this.weekEnd = weekEnd;
 	}
 
 	/**
@@ -80,21 +111,6 @@ public class Teach extends Time {
 	 */
 	public void setTeachId(long teachId) {
 		this.teachId = teachId;
-	}
-
-	/**
-	 * @return the week
-	 */
-	public Week getWeek() {
-		return week;
-	}
-
-	/**
-	 * @param week
-	 *            the week to set
-	 */
-	public void setWeek(Week week) {
-		this.week = week;
 	}
 
 	/**
@@ -158,21 +174,6 @@ public class Teach extends Time {
 	}
 
 	/**
-	 * @return the hol
-	 */
-	public boolean isHol() {
-		return hol;
-	}
-
-	/**
-	 * @param hol
-	 *            the hol to set
-	 */
-	public void setHol(boolean hol) {
-		this.hol = hol;
-	}
-
-	/**
 	 * @return the phong
 	 */
 	public Position getPhong() {
@@ -185,6 +186,21 @@ public class Teach extends Time {
 	 */
 	public void setPhong(Position phong) {
 		this.phong = phong;
+	}
+
+	/**
+	 * @return the hocKy
+	 */
+	public String getHocKy() {
+		return hocKy;
+	}
+
+	/**
+	 * @param hocKy
+	 *            the hocKy to set
+	 */
+	public void setHocKy(String hocKy) {
+		this.hocKy = hocKy;
 	}
 
 }
