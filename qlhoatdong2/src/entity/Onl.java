@@ -9,16 +9,78 @@ package entity;
  * @author nguyenhuuphuong
  * 
  */
-public class Onl extends Time {
+public class Onl {
 	private int caTruc;
 	private long id;
+	private java.sql.Time timeStart;
+	private java.sql.Time timeEnd;
+	private Week week;
+	private int dateOfWeek;
 	private User user;
 	private boolean hol;
 	private boolean late;
 	private int lateMin;
 	private String reason;
 
-	
+	/**
+	 * @return the timeStart
+	 */
+	public java.sql.Time getTimeStart() {
+		return timeStart;
+	}
+
+	/**
+	 * @param timeStart
+	 *            the timeStart to set
+	 */
+	public void setTimeStart(java.sql.Time timeStart) {
+		this.timeStart = timeStart;
+	}
+
+	/**
+	 * @return the timeEnd
+	 */
+	public java.sql.Time getTimeEnd() {
+		return timeEnd;
+	}
+
+	/**
+	 * @param timeEnd
+	 *            the timeEnd to set
+	 */
+	public void setTimeEnd(java.sql.Time timeEnd) {
+		this.timeEnd = timeEnd;
+	}
+
+	/**
+	 * @return the week
+	 */
+	public Week getWeek() {
+		return week;
+	}
+
+	/**
+	 * @param week
+	 *            the week to set
+	 */
+	public void setWeek(Week week) {
+		this.week = week;
+	}
+
+	/**
+	 * @return the dateOfWeek
+	 */
+	public int getDateOfWeek() {
+		return dateOfWeek;
+	}
+
+	/**
+	 * @param dateOfWeek
+	 *            the dateOfWeek to set
+	 */
+	public void setDateOfWeek(int dateOfWeek) {
+		this.dateOfWeek = dateOfWeek;
+	}
 
 	/**
 	 * @return the late
@@ -28,7 +90,8 @@ public class Onl extends Time {
 	}
 
 	/**
-	 * @param late the late to set
+	 * @param late
+	 *            the late to set
 	 */
 	public void setLate(boolean late) {
 		this.late = late;
@@ -42,7 +105,8 @@ public class Onl extends Time {
 	}
 
 	/**
-	 * @param lateMin the lateMin to set
+	 * @param lateMin
+	 *            the lateMin to set
 	 */
 	public void setLateMin(int lateMin) {
 		this.lateMin = lateMin;
@@ -56,7 +120,8 @@ public class Onl extends Time {
 	}
 
 	/**
-	 * @param reason the reason to set
+	 * @param reason
+	 *            the reason to set
 	 */
 	public void setReason(String reason) {
 		this.reason = reason;

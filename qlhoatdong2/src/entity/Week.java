@@ -4,31 +4,63 @@
  */
 package entity;
 
+import java.sql.Date;
+
 /**
  * 
  * @author nguyenhuuphuong
  * 
  */
-public class Week extends Time{
+public class Week {
 	private int weekId;
 	private int weekCount;
+	private Date startDate;
+	private Date endDate;
+	private HocKy hocKy;
 
 	/**
-	 * 
+	 * @return the startDate
 	 */
-	public Week() {
-		super();
-		// TODO Auto-generated constructor stub
+	public Date getStartDate() {
+		return startDate;
 	}
 
 	/**
-	 * @param weekId
-	 * @param weekCount
+	 * @param startDate
+	 *            the startDate to set
 	 */
-	public Week(int weekId, int weekCount) {
-		super();
-		this.weekId = weekId;
-		this.weekCount = weekCount;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	/**
+	 * @return the endDate
+	 */
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	/**
+	 * @param endDate
+	 *            the endDate to set
+	 */
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	/**
+	 * @return the hocKy
+	 */
+	public HocKy getHocKy() {
+		return hocKy;
+	}
+
+	/**
+	 * @param hocKy
+	 *            the hocKy to set
+	 */
+	public void setHocKy(HocKy hocKy) {
+		this.hocKy = hocKy;
 	}
 
 	/**

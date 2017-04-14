@@ -12,7 +12,8 @@
 				<li class="active"><a>Home</a></li>
 			</c:when>
 			<c:otherwise>
-				<li><a href="index.htm">Home <span class="glyphicon glyphicon-chevron-right small"></a></li>
+				<li><a href="index.htm">Home <span
+						class="glyphicon glyphicon-chevron-right small"></a></li>
 			</c:otherwise>
 		</c:choose>
 		<li><a href="#">Quản lý trực bộ môn</a></li>
@@ -21,7 +22,8 @@
 				<li class="active"><a>Quản lý lịch dạy</a></li>
 			</c:when>
 			<c:otherwise>
-				<li><a href="teach.htm">Quản lý lịch dạy <span class="glyphicon glyphicon-chevron-right small"></a></li>
+				<li><a href="teach.htm">Quản lý lịch dạy <span
+						class="glyphicon glyphicon-chevron-right small"></a></li>
 			</c:otherwise>
 		</c:choose>
 		<li class="dropdown"><a class="dropdown-toggle"

@@ -47,18 +47,21 @@
 							<br>
 						</div>
 						<div style="clear: both">
-							<form id="formAddTeach" onsubmit="javascript: addTeach()" action="teach.htm" method="post">
-								<input type="hidden" value="1" name="user">
-								<input type="hidden" value="20161" name="hocKy">
-								<input type="hidden" value="add" name="action">
+							<form id="formAddTeach" onsubmit="javascript: addTeach()"
+								action="teach.htm" method="post">
+								<input type="hidden" value="1" name="user"> <input
+									type="hidden" value="20161" name="hocKy"> <input
+									type="hidden" value="add" name="action">
 								<button class="btn btn-info" onclick="submit()">Add</button>
-							</form><br>
-							<div class="table-responsive" >
+							</form>
+							<br>
+							<div class="table-responsive">
 								<table class="table table-condensed table-bordered">
 									<tr>
 										<th>No.</th>
 										<th>Thứ</th>
 										<th>Thời gian</th>
+										<th>Phòng học</th>
 										<th>tuần học</th>
 										<th>Mã lớp</th>
 										<th>Mã môn</th>
@@ -69,6 +72,7 @@
 										<td><a href="#">1</a></td>
 										<td>Mon</td>
 										<td>6:45 - 9:00</td>
+										<td>TC-403</td>
 										<td>16 - 30</td>
 										<td>86778</td>
 										<td>IT8457</td>
@@ -79,6 +83,7 @@
 										<td><a href="#">2</a></td>
 										<td>Mon</td>
 										<td>6:45 - 9:00</td>
+										<td>TC-403</td>
 										<td>16 - 30</td>
 										<td>86778</td>
 										<td>IT8457</td>

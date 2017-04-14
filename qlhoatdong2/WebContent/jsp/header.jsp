@@ -11,7 +11,8 @@
 		<p id="title">Hệ thống quản lý hoạt động</p>
 		<p id="title2">Bộ môn Kỹ thuật máy tính</p>
 		<p style="color: #FFF; text-align: right">
-			Xin chào <b>${sessionScope.user.name }</b> [<a href="logout.do" style="color: #FFF">Logout</a>]
+			Xin chào <b>${sessionScope.user.name }</b> [<a href="logout.do"
+				style="color: #FFF">Logout</a>]
 		</p>
 	</div>
 </div>

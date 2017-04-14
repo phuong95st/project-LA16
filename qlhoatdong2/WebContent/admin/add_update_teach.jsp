@@ -80,7 +80,7 @@
 						<div class="col-sm-4"></div>
 						<br>
 					</div>
-					<div class="subContent" style="clear:both">
+					<div class="subContent" style="clear: both">
 						<table class="table">
 							<tr>
 								<th>STT</th>
@@ -98,7 +98,8 @@
 								<td>143563</td>
 								<td>IT4954</td>
 								<td>Thiết kế và xây dựng phần mềm</td>
-								<td><button class="btn btn-default btn-xs">Remove</button> </td>
+								<td><button class="btn btn-default btn-xs">Remove</button>
+								</td>
 							</tr>
 							<tr>
 								<td>2</td>
@@ -107,11 +108,13 @@
 								<td>53467</td>
 								<td>IT1234</td>
 								<td>Tương tác người máy</td>
-								<td><button class="btn btn-default btn-xs">Remove</button> </td>
+								<td><button class="btn btn-default btn-xs">Remove</button>
+								</td>
 							</tr>
 						</table>
 					</div>
-					<button class="btn btn-info" style="margin-left: 10pt; margin-bottom: 10pt">Thêm</button>
+					<button class="btn btn-info"
+						style="margin-left: 10pt; margin-bottom: 10pt">Thêm</button>
 				</div>
 			</div>
 		</div>

@@ -52,16 +52,14 @@ public class IndexController extends HttpServlet {
 		}
 
 		// Lấy danh sách lịch trực trong ngày
-		List<Onl> lisOnls = new OnlDaoImpl().getListOnl(Common.getStartNow(),
-				Common.getEndNow(), user.getUserId());
+		List<Onl> lisOnls = new OnlDaoImpl().getListOnl(Common.getStartNow(),0, user.getUserId());
 
 		// Lấy danh sách lịch gặp sinh viên trong ngày hiện tại
 		List<ScheStu> lisScheStus = new ScheStuDaoImpl().getListScheStu(
-				Common.getStartNow(), Common.getEndNow(), user.getUserId());
+				Common.getStartNow(), user.getUserId());
 
 		// Lấy danh sách lịch giảng dạy trong ngày
-		List<Teach> listTeachs = new TeachDaoImpl().getListTeach(
-				Common.getStartNow(), null, user.getUserId());
+		List<Teach> listTeachs = new TeachDaoImpl().getListTeach(Common.getStartNow(), null, user.getUserId());
 		// Lấy full thông tin về lịch giảng dạy trong ngày
 		List<TeachWeek> listTeachInfo = new ArrayList<TeachWeek>();
 		TeachWeekDao teWeekDao = new TeachWeekDaoImpl();
@@ -77,10 +75,7 @@ public class IndexController extends HttpServlet {
 
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
-		request.setAttribute(
-				"now",
-				new Time(cal.get(Calendar.HOUR_OF_DAY), cal
-						.get(Calendar.MINUTE), cal.get(Calendar.SECOND)));
+		request.setAttribute("now",new Time(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND)));
 
 		request.setAttribute(Constant.ACTION, "home");
 		request.getRequestDispatcher("index.jsp").forward(request, response);

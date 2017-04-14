@@ -6,6 +6,7 @@ package dao;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import entity.ScheStu;
 
@@ -26,6 +27,17 @@ public interface ScheStuDao {
 	 *            id nhân viên
 	 * @return List các đối tượng ScheStu
 	 */
-	public List<ScheStu> getListScheStu(Timestamp timeStart, Timestamp timeEnd,
-			int userId);
+	public List<ScheStu> getListScheStu(Timestamp timeStart,int userId);
+	
+	public List<ScheStu> getListScheStu(Map<String, String> listValue, int userId);
+	
+	public boolean addScheStu(ScheStu scheStu);
+	
+	public ScheStu getScheStuById(int id);
+	
+	public boolean updateScheStu(ScheStu scheStu);
+	
+	public boolean delScheStu(ScheStu scheStu);
+	
+	public List<ScheStu> getLisScheStu(String timeStart, String timeEnd, String date, int userId);
 }

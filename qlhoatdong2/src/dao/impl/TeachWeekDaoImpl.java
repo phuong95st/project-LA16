@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 
 import utils.Common;
 import dao.TeachWeekDao;
+import entity.HocKy;
 import entity.Teach;
 import entity.TeachWeek;
 import entity.Week;
@@ -31,7 +32,7 @@ public class TeachWeekDaoImpl extends BaseDaoImpl implements TeachWeekDao {
 		if (connectToDB()) {
 			try {
 				StringBuilder sql = new StringBuilder();
-				sql.append("SELECT * FROM tbl_teach_week tw INNER JOIN tbl_week w ON tw.week_id = w.week_id WHERE w.start_date <= ? AND w.end_date >= ? AND teach_id = ?");
+				sql.append("SELECT * FROM tbl_teach_week tw INNER JOIN tbl_week w ON tw.week_id = w.week_id INNER JOIN tbl_hocky h ON w.hoc_ky_id = h.hoc_ky_id WHERE w.start_date <= ? AND w.end_date >= ? AND teach_id = ?");
 				ps = conn.prepareStatement(sql.toString());
 				ps.setTimestamp(1, now);
 				ps.setTimestamp(2, now);
@@ -46,8 +47,9 @@ public class TeachWeekDaoImpl extends BaseDaoImpl implements TeachWeekDao {
 					Week week = new Week();
 					week.setWeekId(rs.getInt("w.week_id"));
 					week.setWeekCount(rs.getInt("w.week_count"));
-					week.setStart(rs.getTimestamp("w.start_date"));
-					week.setEnd(rs.getTimestamp("w.end_date"));
+					week.setStartDate(rs.getDate("w.start_date"));
+					week.setEndDate(rs.getDate("w.end_date"));
+					week.setHocKy(new HocKy(rs.getInt("h.hoc_ky_id"),rs.getString("h.name"),rs.getString("h.nam_hoc")));
 					teachWeek.setWeek(week);
 					teachWeek.setHol(rs.getBoolean("is_hol"));
 					teachWeek.setLate(rs.getBoolean("is_late"));

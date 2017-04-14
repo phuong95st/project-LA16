@@ -35,8 +35,10 @@
 				<div class="col-sm-10 text-left" id="all_content">
 					<h3>Đăng ký nghỉ phép</h3>
 					<hr>
-					<p class="small hidden" id="loader3"><img alt="Loading"
-						src="${url }/images/loader.gif"> Loading ...</p>
+					<p class="small hidden" id="loader3">
+						<img alt="Loading" src="${url }/images/loader.gif"> Loading
+						...
+					</p>
 					<table class="table table-bordered"
 						style="background-color: #F1F5F8;" id="table_register">
 						<tr>
@@ -51,20 +53,18 @@
 								int type = (Integer) request.getAttribute("type");
 							%>
 							<td>Từ <input type="text" class="datepicker"
-								value='<%=new SimpleDateFormat("dd-MM-yyyy").format(new Date(timeDefault.getTime()))%>' name="start"> đến 
-								<input type="text" class="datepicker"
-								value='<%=new SimpleDateFormat("dd-MM-yyyy").format(new Date(timeDefault.getTime()))%>'name="end">
+								value='<%=new SimpleDateFormat("dd-MM-yyyy").format(new Date(timeDefault.getTime()))%>'
+								name="start"> đến <input type="text" class="datepicker"
+								value='<%=new SimpleDateFormat("dd-MM-yyyy").format(new Date(timeDefault.getTime()))%>'
+								name="end">
 							</td>
 							<td><select class="selectpicker" data-width="fit"
 								name="type">
-									<option
-										<%if (type == 1) out.print("selected='selected'");%>
+									<option <%if (type == 1) out.print("selected='selected'");%>
 										value="1">Buổi sáng</option>
-									<option
-										<%if (type == 2) out.print("selected='selected'");%>
+									<option <%if (type == 2) out.print("selected='selected'");%>
 										value="2">Buổi chiều</option>
-									<option
-										<%if (type == 3) out.print("selected='selected'");%>
+									<option <%if (type == 3) out.print("selected='selected'");%>
 										value="3">Cả ngày</option>
 							</select></td>
 							<td><input type="text" class="form-control"
@@ -74,10 +74,9 @@
 							</td>
 						</tr>
 						<tbody id="include">
-						</tbody>	
+						</tbody>
 					</table>
-					<span id="btnRegister">
-					</span>
+					<span id="btnRegister"> </span>
 				</div>
 			</div>
 		</div>

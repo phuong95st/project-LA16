@@ -12,19 +12,57 @@
 				<li class="active"><a>Home</a></li>
 			</c:when>
 			<c:otherwise>
-				<li><a href="index.htm">Home <span class="glyphicon glyphicon-chevron-right small"></a></li>
+				<li><a href="index.htm">Home <span
+						class="glyphicon glyphicon-chevron-right small"></a></li>
 			</c:otherwise>
 		</c:choose>
-		<li><a href="#">Xem lịch giảng dạy <span class="glyphicon glyphicon-chevron-right small"></span></a></li>
-		<li><a href="#">Lịch trực bộ môn <span class="glyphicon glyphicon-chevron-right small"></a></li>
-		<li><a href="#">Quản lý gặp sinh viên <span class="glyphicon glyphicon-chevron-right small"></a></li>
-		<li><a href="#">Tìm kiếm <span class="glyphicon glyphicon-chevron-right small"></a></li>
+		<c:choose>
+			<c:when test="${action == 'info' }">
+				<li class="active"><a>Thông tin cá nhân</a></li>
+			</c:when>
+			<c:otherwise>
+				<li><a href="info.htm">Thông tin cá nhân <span
+						class="glyphicon glyphicon-chevron-right small"></a></li>
+			</c:otherwise>
+		</c:choose>
+		<c:choose>
+			<c:when test="${action == 'viewTeach' }">
+				<li class="active"><a>Xem lịch dạy</a></li>
+			</c:when>
+			<c:otherwise>
+				<li><a href="viewTeach.htm">Xem lịch dạy <span
+						class="glyphicon glyphicon-chevron-right small"></a></li>
+			</c:otherwise>
+		</c:choose>
+		<li><a href="#">Lịch trực bộ môn <span
+				class="glyphicon glyphicon-chevron-right small"></a></li>
+		<c:choose>
+			<c:when test="${action == 'studentManager' }">
+				<li class="active"><a>Hoạt động hướng dẫn</a></li>
+			</c:when>
+			<c:otherwise>
+				<li><a href="student_manager.htm">Hoạt động hướng dẫn <span
+						class="glyphicon glyphicon-chevron-right small"></a></li>
+			</c:otherwise>
+		</c:choose>
+		<li><a href="#">Thống kê <span
+				class="glyphicon glyphicon-chevron-right small"></a></li>
 		<c:choose>
 			<c:when test="${action == 'my_position' }">
 				<li class="active"><a>Vị trí của tôi</a></li>
 			</c:when>
 			<c:otherwise>
-				<li><a href="my_position.htm">Vị trí của tôi <span class="glyphicon glyphicon-chevron-right small"></a></li>
+				<li><a href="my_position.htm">Vị trí của tôi <span
+						class="glyphicon glyphicon-chevron-right small"></a></li>
+			</c:otherwise>
+		</c:choose>
+		<c:choose>
+			<c:when test="${action == 'search' }">
+				<li class="active"><a>Tìm kiếm</a></li>
+			</c:when>
+			<c:otherwise>
+				<li><a href="search.htm">Tìm kiếm <span
+						class="glyphicon glyphicon-chevron-right small"></a></li>
 			</c:otherwise>
 		</c:choose>
 	</ul>

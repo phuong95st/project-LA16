@@ -23,16 +23,16 @@
 					<div class="col-sm-5">
 						<form class="form-inline">
 							<div class="form-group">
-								<label for="email">Tuần:</label> 
-								<select class="selectpicker" data-width="fit">
-									<option>13</option>
-									<option>14</option>
-									<option>15</option>
+								<label for="email">Tháng:</label> <select class="selectpicker"
+									data-width="fit">
+									<option>6</option>
+									<option>7</option>
+									<option>8</option>
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="pwd">Năm:</label> 
-								<select class="selectpicker" data-width="fit">
+								<label for="pwd">Năm:</label> <select class="selectpicker"
+									data-width="fit">
 									<option>2016</option>
 									<option>2017</option>
 								</select>
@@ -42,8 +42,8 @@
 						</form>
 						<br>
 					</div>
-					<div class="subContent" style="clear:both">
-						<table class="table">
+					<div class="table-responsive" style="clear: both">
+						<table class="table table-condensed table-bordered">
 							<tr>
 								<th>STT</th>
 								<th>Thời gian</th>

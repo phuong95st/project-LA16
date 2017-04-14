@@ -17,19 +17,19 @@
 				<jsp:include page="slidebar_admin.jsp"></jsp:include>
 				<!-- Content -->
 				<div class="col-sm-10 text-left" id="all_content">
-						<h3>Quản lý lịch giảng</h3>
-						<hr>
-						<div class="col-sm-2" >
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Nguyễn Văn A</a></li>
-								<li><a href="#">Nguyễn Văn B</a></li>
-								<li class="active"><a href="#">Nguyễn Văn C</a></li>
-								<li><a href="#">Nguyễn Văn D</a></li>
-							</ul>
-						</div>
-						<div class="col-sm-10">
-							<button class="btn btn-success" style="margin-bottom: 5pt;">Add</button>
-							<table class="table">
+					<h3>Quản lý lịch giảng</h3>
+					<hr>
+					<div class="col-sm-2">
+						<ul class="nav nav-pills nav-stacked">
+							<li><a href="#">Nguyễn Văn A</a></li>
+							<li><a href="#">Nguyễn Văn B</a></li>
+							<li class="active"><a href="#">Nguyễn Văn C</a></li>
+							<li><a href="#">Nguyễn Văn D</a></li>
+						</ul>
+					</div>
+					<div class="col-sm-10">
+						<button class="btn btn-success" style="margin-bottom: 5pt;">Add</button>
+						<table class="table">
 							<tr>
 								<th>STT</th>
 								<th>Thời gian</th>
@@ -76,7 +76,7 @@
 								<th><a href="">Edit</a> | <a href="">Del</a></th>
 							</tr>
 						</table>
-						</div>
+					</div>
 				</div>
 			</div>
 		</div>

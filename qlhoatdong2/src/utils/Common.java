@@ -139,8 +139,7 @@ public class Common {
 	}
 
 	public static String getHour(Date time) {
-		Calendar calendar = Calendar.getInstance(TimeZone
-				.getTimeZone("Asia/Ho_Chi_Minh"));
+		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
 		calendar.setTimeInMillis(time.getTime());
 		return new SimpleDateFormat("HH:mm").format(calendar.getTime());
 	}
@@ -232,9 +231,84 @@ public class Common {
 		System.out.println(((double) Math.round(teach.getPhong().getLongitude()*10000000)/10000000) + "<=" + position.getLongitude()+"<="+ (((double)Math.round((teach.getPhong().getLongitude())*10000000)/10000000)+ 0.0000001));
 		return (double)Math.round(teach.getPhong().getLatitude()*1000000)/1000000 <= position.getLatitude() && position.getLatitude() <= (((double)Math.round(teach.getPhong().getLatitude() * 1000000)/ 1000000) + 0.000001) && (double)Math.round(teach.getPhong().getLongitude()*10000000)/10000000 <= position.getLongitude() && position.getLongitude() <= (((double)Math.round((teach.getPhong().getLongitude())*10000000)/10000000)+ 0.0000001);
 	}
+	
+	public static String mapDayOfWeek(int dayOfWeek){
+		switch (dayOfWeek) {
+		case 1:
+			return "CN";
+		case 2:
+			return "T2";
+		case 3:
+			return "T3";
+		case 4:
+			return "T4";
+		case 5:
+			return "T5";
+		case 6:
+			return "T6";
+		default:
+			return "T7";
+		}
+	}
+	
+	public static int getHourByString(String time){
+		if(time == null){
+			return 0;
+		}
+		if(time.matches("^[0-9]{1,2}:[0-9]{1,2}$")){
+			String[] split = time.split(":");
+			return Integer.parseInt(split[0]);
+		}
+		return 0;
+	}
+	
+	public static int getMinByString(String time){
+		if(time == null){
+			return 0;
+		}
+		if(time.matches("^[0-9]{1,2}:[0-9]{1,2}$")){
+			String[] split = time.split(":");
+			return Integer.parseInt(split[1]);
+		}
+		return 0;
+	}
+	
+	public static int getYearByString(String date){
+		if(date == null){
+			return 0;
+		}
+		if(date.matches("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$")){
+			String[] split = date.split("/");
+			return Integer.parseInt(split[2]);
+		}
+		return 0;
+	}
+	
+	public static int getMonthByString(String date){
+		if(date == null){
+			return 0;
+		}
+		if(date.matches("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$")){
+			String[] split = date.split("/");
+			return Integer.parseInt(split[1]);
+		}
+		return 0;
+	}
+	
+	public static int getDayOfMonthByString(String date){
+		if(date == null){
+			return 0;
+		}
+		if(date.matches("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$")){
+			String[] split = date.split("/");
+			return Integer.parseInt(split[0]);
+		}
+		return 0;
+	}
 
 	public static void main(String[] args) {
-		System.out.println(Common.encodeMD5("phuong1095"));
-
+		System.out.println(Common.getDayOfMonthByString("10/04/2017"));
 	}
+	
+	
 }

@@ -112,13 +112,14 @@ Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
 							</tr>
 						</table>
 						<div>
-							<div id="myPositionMap"  style="position: relative; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);">
+							<div id="myPositionMap"
+								style="position: relative; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);">
 
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>	
+			</div>
 		</div>
 		<jsp:include page="footer.jsp"></jsp:include>
 	</div>

@@ -36,4 +36,6 @@ public interface TeachDao {
 	 * @return
 	 */
 	public boolean update(Teach teach);
+	
+	public List<Teach> getListTeach(String timeStart, String timeEnd, String date, int userId);
 }

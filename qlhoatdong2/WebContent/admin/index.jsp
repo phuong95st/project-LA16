@@ -35,7 +35,9 @@
 				<!-- Content -->
 				<div class="col-sm-10 text-left" id="all_content">
 					<div class="col-sm-9">
-						<p style="margin-top: 10pt;">Bạn là <b>quản trị viên!</b></p>
+						<p style="margin-top: 10pt;">
+							Bạn là <b>quản trị viên!</b>
+						</p>
 					</div>
 					<div class="col-sm-3">
 						<script src="http://www.clocklink.com/embed.js"></script>

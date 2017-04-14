@@ -80,7 +80,16 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 					user.setOther(rs.getString("other"));
 					user.setRole(rs.getBoolean("role"));
 					user.setName(rs.getString("name"));
+					user.setImage(rs.getString("image"));
+					user.setTitle(rs.getString("title"));
 					
+					user.setBirthDay(rs.getDate("birthday"));
+					user.setSex(rs.getBoolean("sex"));
+					user.setQueQuan(rs.getString("que_quan"));
+					user.setDanToc(rs.getString("dan_toc"));
+					user.setAddressNow(rs.getString("dia_chi_hien_tai"));
+					user.setCongTac(rs.getString("tieu_su_cong_tac"));
+					user.setCmt(rs.getString("cmt"));		
 				}
 			} catch (SQLException e) {
 				System.out.println("Error: " + e.getMessage());

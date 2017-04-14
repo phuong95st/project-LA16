@@ -46,4 +46,11 @@
 		<function-signature>java.lang.String getThu (java.sql.Timestamp)
 		</function-signature>
 	</function>
+	<function>
+		<description>ánh xạ thứ trong tuần</description>
+		<name>mapDayOfWeek</name>
+		<function-class>utils.Common</function-class>
+		<function-signature>java.lang.String mapDayOfWeek (int)
+		</function-signature>
+	</function>
 </taglib>

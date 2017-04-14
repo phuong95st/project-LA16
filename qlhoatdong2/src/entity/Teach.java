@@ -21,7 +21,6 @@ public class Teach {
 	private Position phong;
 	private Week weekStart;
 	private Week weekEnd;
-	private String hocKy;
 
 	/**
 	 * @return the timeStart
@@ -186,21 +185,6 @@ public class Teach {
 	 */
 	public void setPhong(Position phong) {
 		this.phong = phong;
-	}
-
-	/**
-	 * @return the hocKy
-	 */
-	public String getHocKy() {
-		return hocKy;
-	}
-
-	/**
-	 * @param hocKy
-	 *            the hocKy to set
-	 */
-	public void setHocKy(String hocKy) {
-		this.hocKy = hocKy;
 	}
 
 }

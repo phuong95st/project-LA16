@@ -4,6 +4,9 @@
  */
 package entity;
 
+import java.sql.Date;
+
+
 /**
  * 
  * @author nguyenhuuphuong
@@ -23,6 +26,114 @@ public class User {
 	private String research;
 	private boolean role;
 	private String name;
+	private String image;
+	private String title;
+
+	private Date birthDay;
+	private boolean sex;
+	private String queQuan;
+	private String danToc;
+	private String addressNow;
+	private String congTac;
+	private String cmt;
+
+	/**
+	 * @return the birthDay
+	 */
+	public Date getBirthDay() {
+		return birthDay;
+	}
+
+	/**
+	 * @param birthDay the birthDay to set
+	 */
+	public void setBirthDay(Date birthDay) {
+		this.birthDay = birthDay;
+	}
+
+	/**
+	 * @return the sex
+	 */
+	public boolean isSex() {
+		return sex;
+	}
+
+	/**
+	 * @param sex the sex to set
+	 */
+	public void setSex(boolean sex) {
+		this.sex = sex;
+	}
+
+	/**
+	 * @return the queQuan
+	 */
+	public String getQueQuan() {
+		return queQuan;
+	}
+
+	/**
+	 * @param queQuan the queQuan to set
+	 */
+	public void setQueQuan(String queQuan) {
+		this.queQuan = queQuan;
+	}
+
+	/**
+	 * @return the danToc
+	 */
+	public String getDanToc() {
+		return danToc;
+	}
+
+	/**
+	 * @param danToc the danToc to set
+	 */
+	public void setDanToc(String danToc) {
+		this.danToc = danToc;
+	}
+
+	/**
+	 * @return the addressNow
+	 */
+	public String getAddressNow() {
+		return addressNow;
+	}
+
+	/**
+	 * @param addressNow the addressNow to set
+	 */
+	public void setAddressNow(String addressNow) {
+		this.addressNow = addressNow;
+	}
+
+	/**
+	 * @return the congTac
+	 */
+	public String getCongTac() {
+		return congTac;
+	}
+
+	/**
+	 * @param congTac the congTac to set
+	 */
+	public void setCongTac(String congTac) {
+		this.congTac = congTac;
+	}
+
+	/**
+	 * @return the cmt
+	 */
+	public String getCmt() {
+		return cmt;
+	}
+
+	/**
+	 * @param cmt the cmt to set
+	 */
+	public void setCmt(String cmt) {
+		this.cmt = cmt;
+	}
 
 	/**
 	 * @return the userId
@@ -217,6 +328,36 @@ public class User {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the image
+	 */
+	public String getImage() {
+		return image;
+	}
+
+	/**
+	 * @param image
+	 *            the image to set
+	 */
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * @param title
+	 *            the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }

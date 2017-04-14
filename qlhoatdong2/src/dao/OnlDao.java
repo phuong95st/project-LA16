@@ -15,16 +15,12 @@ import entity.Onl;
  * 
  */
 public interface OnlDao {
-	/**
-	 * Lấy danh sách lịch gặp sinh viên
-	 * 
-	 * @param timeStart
-	 *            Thời gian bắt đầu
-	 * @param timeEnd
-	 *            Thời gian kết thúc
-	 * @param id
-	 *            id nhân viên
-	 * @return List các đối tượng ScheStu
-	 */
-	public List<Onl> getListOnl(Timestamp timeStart, Timestamp timeEnd, int id);
+	
+	public List<Onl> getListOnl(Timestamp now, int weekId, int userId);
+	
+	public Onl getOnlById(long id);
+	
+	public boolean update(Onl onl, boolean isUpdateStatus);
+	
+	public boolean setReason(String reason, long id);
 }
