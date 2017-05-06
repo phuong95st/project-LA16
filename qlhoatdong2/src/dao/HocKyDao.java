@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import entity.HocKy;
@@ -15,4 +16,14 @@ import entity.HocKy;
  */
 public interface HocKyDao {
 	public List<HocKy> getListHocKy();
+	
+	public String getHocKy(Timestamp now);
+	
+	public List<String> getListNamHoc();
+	
+	public int add(HocKy hocKy);
+	
+	public boolean existNamHoc(String namHoc);
+	
+	public List<HocKy> getLisHocKy(String namHoc);
 }

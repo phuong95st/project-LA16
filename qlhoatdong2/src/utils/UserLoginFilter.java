@@ -1,6 +1,7 @@
 package utils;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,11 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import entity.User;
+
 /**
  * Servlet Filter implementation class LoginFilter
  */
 @WebFilter("*.htm")
-public class LoginFilter implements Filter {
+public class UserLoginFilter implements Filter {
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
@@ -26,9 +29,14 @@ public class LoginFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse res = (HttpServletResponse)response;
 		HttpSession session = req.getSession();
-		if(session.getAttribute("user") == null){
+		User user = (User) session.getAttribute("user");
+		if(user == null){
 			session.invalidate();
 			res.sendRedirect("login.do");
+			return;
+		}else if(user.isRole()){
+			PrintWriter out = res.getWriter();
+			out.print("Bad Request!");
 			return;
 		}
 

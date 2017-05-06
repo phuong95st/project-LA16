@@ -11,9 +11,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
+import entity.Onl;
 import entity.Position;
 import entity.Teach;
 
@@ -139,7 +141,11 @@ public class Common {
 	}
 
 	public static String getHour(Date time) {
-		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+		if (time == null) {
+			return null;
+		}
+		Calendar calendar = Calendar.getInstance(TimeZone
+				.getTimeZone("Asia/Ho_Chi_Minh"));
 		calendar.setTimeInMillis(time.getTime());
 		return new SimpleDateFormat("HH:mm").format(calendar.getTime());
 	}
@@ -171,18 +177,23 @@ public class Common {
 	 * @return
 	 */
 	public static String getDay(Date time) {
+		if (time == null) {
+			return null;
+		}
 		Calendar calendar = Calendar.getInstance(TimeZone
 				.getTimeZone("Asia/Ho_Chi_Minh"));
 		calendar.setTimeInMillis(time.getTime());
 		return new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime());
 	}
-	
+
 	/**
 	 * Lấy thứ dạng chuỗi
-	 * @param time Timestamp
+	 * 
+	 * @param time
+	 *            Timestamp
 	 * @return thứ trong tuần dạng chuỗi
 	 */
-	public static String getThu(Timestamp time){
+	public static String getThu(Timestamp time) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(time.getTime());
 		return new SimpleDateFormat("E").format(calendar.getTime());
@@ -219,20 +230,21 @@ public class Common {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Check vị trí của người dùng
+	 * 
 	 * @param teach
 	 * @param position
 	 * @return
 	 */
-	public static boolean checkPosition(Teach teach,Position position ){
-		System.out.println(((double)Math.round(teach.getPhong().getLatitude()*1000000)/1000000) + "<=" + position.getLatitude() + "<=" + (((double)Math.round(teach.getPhong().getLatitude() * 1000000)/ 1000000) + 0.000001));
-		System.out.println(((double) Math.round(teach.getPhong().getLongitude()*10000000)/10000000) + "<=" + position.getLongitude()+"<="+ (((double)Math.round((teach.getPhong().getLongitude())*10000000)/10000000)+ 0.0000001));
-		return (double)Math.round(teach.getPhong().getLatitude()*1000000)/1000000 <= position.getLatitude() && position.getLatitude() <= (((double)Math.round(teach.getPhong().getLatitude() * 1000000)/ 1000000) + 0.000001) && (double)Math.round(teach.getPhong().getLongitude()*10000000)/10000000 <= position.getLongitude() && position.getLongitude() <= (((double)Math.round((teach.getPhong().getLongitude())*10000000)/10000000)+ 0.0000001);
+	public static boolean checkPosition(Teach teach, Position position) {
+		System.out.println(( Math.floor(teach.getPhong().getLatitude() * 1000000) / 1000000)+ "<="+ position.getLatitude()+ "<="+ ( Math.ceil(teach.getPhong().getLatitude() * 1000000) / 1000000));
+		System.out.println(( Math.floor(teach.getPhong().getLongitude() * 10000000) / 10000000)+ "<="+ position.getLongitude()+ "<="+ ( Math.ceil((teach.getPhong().getLongitude()) * 10000000) / 10000000));
+		return Math.floor(teach.getPhong().getLatitude() * 1000000) / 1000000 <= position.getLatitude()&& position.getLatitude() <= (Math.ceil(teach.getPhong().getLatitude() * 1000000) / 1000000) && Math.floor(teach.getPhong().getLongitude() * 10000000) / 10000000 <= position.getLongitude()&& position.getLongitude() <= (Math.ceil((teach.getPhong().getLongitude()) * 10000000) / 10000000);
 	}
-	
-	public static String mapDayOfWeek(int dayOfWeek){
+
+	public static String mapDayOfWeek(int dayOfWeek) {
 		switch (dayOfWeek) {
 		case 1:
 			return "CN";
@@ -250,65 +262,145 @@ public class Common {
 			return "T7";
 		}
 	}
-	
-	public static int getHourByString(String time){
-		if(time == null){
+
+	public static int getHourByString(String time) {
+		if (time == null) {
 			return 0;
 		}
-		if(time.matches("^[0-9]{1,2}:[0-9]{1,2}$")){
+		if (time.matches("^[0-9]{1,2}:[0-9]{1,2}$")) {
 			String[] split = time.split(":");
 			return Integer.parseInt(split[0]);
 		}
 		return 0;
 	}
-	
-	public static int getMinByString(String time){
-		if(time == null){
+
+	public static int getMinByString(String time) {
+		if (time == null) {
 			return 0;
 		}
-		if(time.matches("^[0-9]{1,2}:[0-9]{1,2}$")){
+		if (time.matches("^[0-9]{1,2}:[0-9]{1,2}$")) {
 			String[] split = time.split(":");
 			return Integer.parseInt(split[1]);
 		}
 		return 0;
 	}
-	
-	public static int getYearByString(String date){
-		if(date == null){
+
+	public static int getYearByString(String date) {
+		if (date == null) {
 			return 0;
 		}
-		if(date.matches("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$")){
+		if (date.matches("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$")) {
 			String[] split = date.split("/");
 			return Integer.parseInt(split[2]);
 		}
 		return 0;
 	}
-	
-	public static int getMonthByString(String date){
-		if(date == null){
+
+	public static int getMonthByString(String date) {
+		if (date == null) {
 			return 0;
 		}
-		if(date.matches("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$")){
+		if (date.matches("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$")) {
 			String[] split = date.split("/");
 			return Integer.parseInt(split[1]);
 		}
 		return 0;
 	}
-	
-	public static int getDayOfMonthByString(String date){
-		if(date == null){
+
+	public static int getDayOfMonthByString(String date) {
+		if (date == null) {
 			return 0;
 		}
-		if(date.matches("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$")){
+		if (date.matches("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$")) {
 			String[] split = date.split("/");
 			return Integer.parseInt(split[0]);
 		}
 		return 0;
 	}
 
-	public static void main(String[] args) {
-		System.out.println(Common.getDayOfMonthByString("10/04/2017"));
+	public static boolean isEmail(String email) {
+		if (email == null) {
+			return false;
+		}
+		return email
+				.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$");
 	}
-	
-	
+
+	public static boolean isPhoneNumber(String phoneNumber) {
+		if (phoneNumber == null) {
+			return false;
+		}
+		return phoneNumber.matches("(\\+84|0)\\d{9,10}");
+	}
+
+	public static boolean isCMT(String cmt) {
+		if (cmt == null) {
+			return false;
+		}
+		String regex = "^[0-9]{9}$";
+		if (!cmt.matches(regex)) {
+			regex = "^[0-9]{12}$";
+			return cmt.matches(regex);
+		}
+		return true;
+	}
+
+	public static boolean checkData(Teach teach, List<Teach> lisTeach) {
+		for (Teach item : lisTeach) {
+			if (teach.getDateOfWeek() == item.getDateOfWeek()
+					&& checkTime(teach, item) && checkWeek(teach, item)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean checkTime(Teach teach1, Teach teach2) {
+		return (teach1.getTimeStart().compareTo(teach2.getTimeStart()) >= 0 && teach1
+				.getTimeStart().compareTo(teach2.getTimeEnd()) <= 0)
+				|| (teach1.getTimeEnd().compareTo(teach2.getTimeStart()) >= 0 && teach1
+						.getTimeEnd().compareTo(teach2.getTimeEnd()) <= 0)
+				|| (teach1.getTimeStart().compareTo(teach2.getTimeStart()) < 0 && teach1
+						.getTimeEnd().compareTo(teach2.getTimeEnd()) > 0);
+	}
+
+	public static boolean checkWeek(Teach teach1, Teach teach2) {
+		return (teach1.getWeekStart().getWeekCount() >= teach2.getWeekStart()
+				.getWeekCount() && teach1.getWeekStart().getWeekCount() <= teach2
+				.getWeekEnd().getWeekCount())
+				|| (teach1.getWeekEnd().getWeekCount() >= teach2.getWeekStart()
+						.getWeekCount() && teach1.getWeekEnd().getWeekCount() <= teach2
+						.getWeekEnd().getWeekCount());
+	}
+
+	public static boolean checkData(Onl onl, List<Onl> listOnl) {
+		for (Onl item : listOnl) {
+			if (onl.getDateOfWeek() == item.getDateOfWeek()
+					&& checkTime(onl, item)
+					&& onl.getWeek().getWeekId() == item.getWeek().getWeekId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static boolean checkTime(Onl onl1, Onl onl2) {
+		return (onl1.getTimeStart().compareTo(onl2.getTimeStart()) >= 0 && onl1
+				.getTimeStart().compareTo(onl2.getTimeEnd()) <= 0)
+				|| (onl1.getTimeEnd().compareTo(onl2.getTimeStart()) >= 0 && onl1
+						.getTimeEnd().compareTo(onl2.getTimeEnd()) <= 0)
+				|| (onl1.getTimeStart().compareTo(onl2.getTimeStart()) < 0 && onl1
+						.getTimeEnd().compareTo(onl2.getTimeEnd()) > 0);
+	}
+
+	public static String getHocKy(String namHoc) {
+		if (namHoc == null) {
+			return null;
+		}
+		if (!namHoc.matches("^[0-9]{4}-[0-9]{4}$")) {
+			return "";
+		}
+		return namHoc.substring(0, 4);
+	}
+
 }

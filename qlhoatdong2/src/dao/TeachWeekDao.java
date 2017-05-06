@@ -21,4 +21,9 @@ public interface TeachWeekDao {
 	
 	public boolean setReason(String reason, long id);
 
+	public TeachWeek getTeachDaoByTeachId(Teach teach, int weekId);
+	
+	public boolean insertTeachWeek(long teachId, int weekId);
+	
+	public boolean deleteTeachWeek(long teachId, int weekId);
 }

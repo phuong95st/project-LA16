@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import dao.UserDao;
 import dao.impl.UserDaoImpl;
 import entity.User;
+import utils.Constant;
 import validate.ValidateUser;
 
 
@@ -57,6 +58,11 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);
 		
+		if (user.isRole()) {
+			request.setAttribute(Constant.ACTION, "home");
+			response.sendRedirect(request.getContextPath()+"/admin/index.ad");
+			return;
+		}
 		response.sendRedirect("index.htm");
 
 	}

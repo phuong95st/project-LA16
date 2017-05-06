@@ -35,9 +35,28 @@
 									.val();
 							var date = $(".datepicker").val();
 
+							var flag = false;
+							var message = "";
 							if (date == "") {
+								flag = true;
+								message = "Hãy nhập thông tin tìm kiếm!";
+							} else {
+								var inputDate = new Date(formatDate(date))
+										.getTime();
+								var now = new Date();
+								var now2 = new Date(now.getFullYear(), now
+										.getMonth(), now.getDate()).getTime();
+								if (inputDate >= now2) {
+									flag = true;
+									message = "Hãy nhập thời gian trong quá khứ.";
+								} else if ((timeStart == "" && timeEnd != "") || (timeStart != "" && timeEnd == "")) {
+									flag = true;
+									message = "Nhập chính xác thời gian!";
+								}	
+							}
+							if(flag){
 								$.bootstrapGrowl(
-										"Hãy nhập thông tin tìm kiếm!", {
+										message, {
 											ele : 'body', // which element to append to
 											type : 'danger', // (null, 'info', 'danger', 'success')
 											offset : {
@@ -55,92 +74,26 @@
 										});
 								$("#load8").addClass("hidden");
 								$("#mess").removeClass("hidden");
-							} else {
-								var inputDate = new Date(formatDate(date))
-										.getTime();
-								var now = new Date();
-								var now2 = new Date(now.getFullYear(), now
-										.getMonth(), now.getDate()).getTime();
-								if (inputDate >= now2) {
-									$.bootstrapGrowl(
-											"Hãy nhập thời gian trong quá khứ",
-											{
-												ele : 'body', // which element to append to
-												type : 'danger', // (null, 'info', 'danger', 'success')
-												offset : {
-													from : 'top',
-													amount : 20
-												}, // 'top', or 'bottom'
-												align : 'center', // ('left', 'right', or 'center')
-												width : "auto", // (integer, or 'auto')
-												delay : 5000, // Time while the message will be displayed.
-												// It's not equivalent to the *demo* timeOut!
-												allow_dismiss : true, // If true then will display a cross to
-												// close the popup.
-												stackup_spacing : 10
-											// spacing between consecutively stacked growls.
-											});
-									$("#load8").addClass("hidden");
-									$("#mess").removeClass("hidden");
-								} else if (timeStart == "" && timeEnd != "") {
-									$.bootstrapGrowl(
-											"Nhập chính xác thời gian!", {
-												ele : 'body', // which element to append to
-												type : 'danger', // (null, 'info', 'danger', 'success')
-												offset : {
-													from : 'top',
-													amount : 20
-												}, // 'top', or 'bottom'
-												align : 'center', // ('left', 'right', or 'center')
-												width : "auto", // (integer, or 'auto')
-												delay : 5000, // Time while the message will be displayed.
-												// It's not equivalent to the *demo* timeOut!
-												allow_dismiss : true, // If true then will display a cross to
-												// close the popup.
-												stackup_spacing : 10
-											// spacing between consecutively stacked growls.
-											});
-									$("#load8").addClass("hidden");
-									$("#mess").removeClass("hidden");
-								} else if (timeStart != "" && timeEnd == "") {
-									$.bootstrapGrowl(
-											"Nhập chính xác thời gian!", {
-												ele : 'body', // which element to append to
-												type : 'danger', // (null, 'info', 'danger', 'success')
-												offset : {
-													from : 'top',
-													amount : 20
-												}, // 'top', or 'bottom'
-												align : 'center', // ('left', 'right', or 'center')
-												width : "auto", // (integer, or 'auto')
-												delay : 5000, // Time while the message will be displayed.
-												// It's not equivalent to the *demo* timeOut!
-												allow_dismiss : true, // If true then will display a cross to
-												// close the popup.
-												stackup_spacing : 10
-											// spacing between consecutively stacked growls.
-											});
-									$("#load8").addClass("hidden");
-									$("#mess").removeClass("hidden");
-								} else {
-									$.ajax({
-										type : "POST",
-										url : "search.htm",
-										data : {
-											"timeStart" : timeStart,
-											"timeEnd" : timeEnd,
-											"date" : date
-										},
-										success : function(data) {
-											$("#resultSearch").html(data);
-											$("#load8").addClass("hidden");
-										},
-										error : function() {
-											alert("Không thể gửi dữ liệu!");
-										}
-									});
-								}
+							}else{
+								$.ajax({
+									type : "POST",
+									url : "search.htm",
+									data : {
+										"timeStart" : timeStart,
+										"timeEnd" : timeEnd,
+										"date" : date
+									},
+									success : function(data) {
+										$("#resultSearch").html(data);
+										$("#load8").addClass("hidden");
+									},
+									error : function() {
+										alert("Lỗi hệ thống");
+										$("#load8").addClass("hidden");
+									}
+								});
 							}
+							
 						});
 				function formatDate(date) {
 					var datearray = date.split("/");
@@ -176,7 +129,7 @@
 										value="${my:getDay(now) }">
 								</div>
 							</div>
-							<button type="button" class="btn btn-success" name="search">Tìm
+							<button type="button" class="btn btn-success" name="search"><span class="glyphicon glyphicon-search"></span> Tìm
 								kiếm</button>
 						</form>
 					</div>

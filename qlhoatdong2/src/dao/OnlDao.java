@@ -6,6 +6,7 @@ package dao;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import entity.Onl;
 
@@ -23,4 +24,17 @@ public interface OnlDao {
 	public boolean update(Onl onl, boolean isUpdateStatus);
 	
 	public boolean setReason(String reason, long id);
+	
+	public boolean checkOnlByUserId(int userId);
+	
+	public List<Onl> getListOnl(Map<String, Object> searchValue);
+	
+	public List<Onl> getListOnl (int userId, int weekId, long onlId);
+	
+	public boolean insert(Onl onl);
+	
+	public boolean delete(long onlId);
+	
+	public List<Onl> getListOnlBySearch(Map<String, Object> listValue);
+	
 }

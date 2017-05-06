@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.sql.Time;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
 import javax.servlet.ServletException;
@@ -11,16 +12,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
+import utils.Common;
 import utils.Constant;
 import utils.MessageProperties;
+import dao.HocKyDao;
 import dao.OnlDao;
+import dao.WeekDao;
+import dao.impl.HocKyDaoImpl;
 import dao.impl.OnlDaoImpl;
 import dao.impl.PositionDaoImpl;
+import dao.impl.WeekDaoImpl;
+import entity.HocKy;
 import entity.Onl;
 import entity.Position;
+import entity.User;
+import entity.Week;
 
 /**
  * Servlet implementation class OnlController
@@ -35,7 +45,29 @@ public class OnlController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		// get list học kỳ
+		HocKyDao hocKyDao = new HocKyDaoImpl();
+		List<HocKy> listHocKy = hocKyDao.getListHocKy();
+		request.setAttribute("listHocKy", listHocKy);
+		// lấy học kỳ hiện tại
+		String currentHocKy = hocKyDao.getHocKy(Common.getNow());
+		request.setAttribute("currentHocKy", currentHocKy);
+		// lấy danh sách tuần theo học kỳ hiện tại
+		WeekDao weekDao = new WeekDaoImpl();
+		List<Week> listWeek = weekDao.getListWeek(currentHocKy);
+		request.setAttribute("listWeek", listWeek);
+		// lấy tuần hiện tại
+		Week currentWeek = weekDao.getCurrentWeek(Common.getNow());
+		request.setAttribute("currentWeek", currentWeek);
+		
+		// lấy lịch trực trong tuần
+		List<Onl> listOnl = new OnlDaoImpl().getListOnl(null, currentWeek.getWeekId(), user.getUserId());
+		request.setAttribute(Constant.ACTION, "viewOnl");
+		request.setAttribute("listOnl", listOnl);
+		request.getRequestDispatcher("view_onl_cal.jsp").forward(request, response);
+		
 	}
 
 	/**
@@ -67,21 +99,23 @@ public class OnlController extends HttpServlet {
 				return;
 			}
 			// check vị trí
-			// if(!checkPosition(position, latitude, longitude)){
-			// jsonObject.put(Constant.STATUS, false);
-			// jsonObject.put(Constant.DATA,MessageProperties.getData("ERR13"));
-			// out.write(jsonObject.toJSONString().getBytes());
-			// out.flush();
-			// return;
-			// }
-			if (!(latitude >= 20 && latitude <= 22 && longitude >= 105 && longitude <= 106)) {
-				String error = MessageProperties.getData("ERR09");
+			if (!checkPosition(position, latitude, longitude)) {
 				jsonObject.put(Constant.STATUS, false);
-				jsonObject.put(Constant.DATA, error);
+				jsonObject.put(Constant.DATA,
+						MessageProperties.getData("ERR13"));
 				out.write(jsonObject.toJSONString().getBytes());
 				out.flush();
 				return;
 			}
+			// if (!(latitude >= 20 && latitude <= 22 && longitude >= 105 &&
+			// longitude <= 106)) {
+			// String error = MessageProperties.getData("ERR09");
+			// jsonObject.put(Constant.STATUS, false);
+			// jsonObject.put(Constant.DATA, error);
+			// out.write(jsonObject.toJSONString().getBytes());
+			// out.flush();
+			// return;
+			// }
 			// check thời giạn click nhận giao ban
 			Calendar cal = Calendar.getInstance();
 			cal.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
@@ -134,7 +168,8 @@ public class OnlController extends HttpServlet {
 			// update lý do
 			if (!new OnlDaoImpl().setReason(reason, onlId)) {
 				jsonObject.put(Constant.STATUS, false);
-				jsonObject.put(Constant.DATA,MessageProperties.getData("ERR10"));
+				jsonObject.put(Constant.DATA,
+						MessageProperties.getData("ERR10"));
 				out.write(jsonObject.toJSONString().getBytes());
 				out.flush();
 				return;
@@ -161,20 +196,13 @@ public class OnlController extends HttpServlet {
 	 */
 	public boolean checkPosition(Position position, double latitude,
 			double longitude) {
-		double latitudeMin = (double) Math
-				.round(position.getLatitude() * 1000000) / 1000000;
-		double latitudeMax = (double) Math
-				.round(position.getLatitude() * 1000000) / 1000000 + 0.000001;
-		double longitudeMin = (double) Math
-				.round(position.getLongitude() * 10000000) / 10000000;
-		double longitudeMax = (double) Math
-				.round((position.getLongitude()) * 10000000) / 10000000 + 0.0000001;
-		System.out.println(latitudeMin + " <= " + latitude + " <= "
-				+ latitudeMax);
-		System.out.println(longitudeMin + " <= " + longitude + " <= "
-				+ longitudeMax);
-		return latitudeMin <= latitude && latitude <= latitudeMax
-				&& longitudeMin <= longitude && longitude <= longitudeMax;
+		double latitudeMin = Math.floor(position.getLatitude() * 1000000) / 1000000;
+		double latitudeMax = Math.ceil(position.getLatitude() * 1000000) / 1000000;
+		double longitudeMin = Math.floor(position.getLongitude() * 10000000) / 10000000;
+		double longitudeMax = Math.ceil((position.getLongitude()) * 10000000) / 10000000;
+		System.out.println(latitudeMin + " <= " + latitude + " <= "+ latitudeMax);
+		System.out.println(longitudeMin + " <= " + longitude + " <= "+ longitudeMax);
+		return latitudeMin <= latitude && latitude <= latitudeMax && longitudeMin <= longitude && longitude <= longitudeMax;
 	}
 
 }

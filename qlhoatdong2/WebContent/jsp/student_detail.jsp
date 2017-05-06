@@ -87,8 +87,8 @@
 							</tr>
 						</table>
 						<p class="hidden small" id="load7"><img alt="Loading..." src="${url }/images/loader.gif"> Loading...</p>
-						<a type="button" class="btn btn-info btn-sm" href="student_manager.htm?action=edit&scheStuId=${scheStu.id }">Edit</a>
-						<button type="button" class="btn btn-warning btn-sm" name="delete" onclick="deleteScheStu(${scheStu.id});">Delete</button>
+						<a type="button" class="btn btn-info btn-sm" href="student_manager.htm?action=edit&scheStuId=${scheStu.id }"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+						<button type="button" class="btn btn-danger btn-sm" name="delete" onclick="deleteScheStu(${scheStu.id});"><span class="glyphicon glyphicon-remove-sign"></span> Delete</button>
 					</div>
 					<hr>
 					<div class="table-responsive">
@@ -103,7 +103,7 @@
 							</tr>
 							<c:forEach items="${listCheck }" var="check">
 								<tr>
-									<td><a href="student_detail.htm?action=edit&checkId=${check.id }">${check.week.weekCount }</a></td>
+									<td><a href="student_detail.htm?action=edit&checkId=${check.id }"><span class="glyphicon glyphicon-pencil"></span> ${check.week.weekCount }</a></td>
 									<td>${my:getDay(check.week.startDate) }</td>
 									<td>
 										<c:choose>

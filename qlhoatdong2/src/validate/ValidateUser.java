@@ -44,4 +44,22 @@ public class ValidateUser {
 
 		return listError;
 	}
+	
+	public List<String> validateUser(String email, String sdt, String cmt, int userId){
+		List<String> listError = new ArrayList<>();
+		if(!Common.isCMT(cmt)){
+			listError.add(MessageProperties.getData("ERR18"));
+		}
+		if(!Common.isEmail(email)){
+			listError.add(MessageProperties.getData("ERR15"));
+		}
+		if(new UserDaoImpl().isExistEmail(email, userId)){
+			listError.add(MessageProperties.getData("ERR17"));
+		}
+		if(!Common.isPhoneNumber(sdt)){
+			listError.add(MessageProperties.getData("ERR16"));
+		}
+		return listError;
+	}
+
 }

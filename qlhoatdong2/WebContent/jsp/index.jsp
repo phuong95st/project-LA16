@@ -88,7 +88,7 @@
 															</c:when>
 														</c:choose></td>
 													</c:when>
-													<c:when test="${!onl.hol && onl.timeStart >= now }">
+													<c:when test="${!onl.hol && !onl.late}">
 														<td class="text-success">Good!</td>
 													</c:when>
 													<c:otherwise>
@@ -204,7 +204,7 @@
 														</c:choose></td>
 												</c:when>
 												<c:when
-													test="${!teachInfo.hol && teachInfo.teach.timeStart >= now}">
+													test="${!teachInfo.hol && !teachInfo.late}">
 													<td class="text-success">Good!</td>
 												</c:when>
 												<c:otherwise>

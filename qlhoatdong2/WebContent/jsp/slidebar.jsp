@@ -34,8 +34,15 @@
 						class="glyphicon glyphicon-chevron-right small"></a></li>
 			</c:otherwise>
 		</c:choose>
-		<li><a href="#">Lịch trực bộ môn <span
-				class="glyphicon glyphicon-chevron-right small"></a></li>
+		<c:choose>
+			<c:when test="${action == 'viewOnl' }">
+				<li class="active"><a>Lịch trực bộ môn</a></li>
+			</c:when>
+			<c:otherwise>
+				<li><a href="onl.htm">Lịch trực bộ môn <span
+						class="glyphicon glyphicon-chevron-right small"></a></li>
+			</c:otherwise>
+		</c:choose>
 		<c:choose>
 			<c:when test="${action == 'studentManager' }">
 				<li class="active"><a>Hoạt động hướng dẫn</a></li>
@@ -45,8 +52,15 @@
 						class="glyphicon glyphicon-chevron-right small"></a></li>
 			</c:otherwise>
 		</c:choose>
-		<li><a href="#">Thống kê <span
-				class="glyphicon glyphicon-chevron-right small"></a></li>
+		<c:choose>
+			<c:when test="${action == 'thongke' }">
+				<li class="active"><a>Thống kê dạy</a></li>
+			</c:when>
+			<c:otherwise>
+				<li><a href="thong_ke.htm">Thống kê dạy <span
+						class="glyphicon glyphicon-chevron-right small"></a></li>
+			</c:otherwise>
+		</c:choose>
 		<c:choose>
 			<c:when test="${action == 'my_position' }">
 				<li class="active"><a>Vị trí của tôi</a></li>

@@ -91,14 +91,13 @@ public class StudentManagerController extends HttpServlet {
 			// get list học kỳ
 			List<HocKy> listHocKy = new HocKyDaoImpl().getListHocKy();
 			request.setAttribute("listHocKy", listHocKy);
-			String type = "1";
+			int type = 1;
 			String hocKy = listHocKy.get(0).getName();
-			Map<String, String> listValue = new HashMap<>();
+			Map<String, Object> listValue = new HashMap<>();
 			listValue.put("type", type);
 			listValue.put("h2.name", hocKy);
 			// lấy danh sách lịch gặp sinh viên
-			List<ScheStu> lisScheStus = new ScheStuDaoImpl().getListScheStu(
-					listValue, user.getUserId());
+			List<ScheStu> lisScheStus = new ScheStuDaoImpl().getListScheStu(listValue, user.getUserId());
 			request.setAttribute("lisScheStus", lisScheStus);
 			request.setAttribute(Constant.ACTION, "studentManager");
 			request.getRequestDispatcher("student-manager.jsp").forward(
@@ -122,14 +121,14 @@ public class StudentManagerController extends HttpServlet {
 		if ("search".equals(action)) {
 
 			String name = request.getParameter("name");
-			String type = request.getParameter("type");
+			int type = Integer.parseInt(request.getParameter("type"));
 			String hocKy = request.getParameter("hocKy");
 
 			// get list học kỳ
 			List<HocKy> listHocKy = new HocKyDaoImpl().getListHocKy();
 			request.setAttribute("listHocKy", listHocKy);
 
-			Map<String, String> listValue = new HashMap<>();
+			Map<String, Object> listValue = new HashMap<>();
 			if (!"".equals(name)) {
 				listValue.put("name", name);
 			}
@@ -141,8 +140,7 @@ public class StudentManagerController extends HttpServlet {
 			}
 
 			// lấy danh sách lịch gặp sinh viên
-			List<ScheStu> lisScheStus = new ScheStuDaoImpl().getListScheStu(
-					listValue, user.getUserId());
+			List<ScheStu> lisScheStus = new ScheStuDaoImpl().getListScheStu(listValue, user.getUserId());
 			request.setAttribute("lisScheStus", lisScheStus);
 			request.getRequestDispatcher("load/studentManagerLoad.jsp")
 					.forward(request, response);

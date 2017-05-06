@@ -29,7 +29,7 @@ public interface ScheStuDao {
 	 */
 	public List<ScheStu> getListScheStu(Timestamp timeStart,int userId);
 	
-	public List<ScheStu> getListScheStu(Map<String, String> listValue, int userId);
+	public List<ScheStu> getListScheStu(Map<String, Object> listValue, int userId);
 	
 	public boolean addScheStu(ScheStu scheStu);
 	
@@ -39,5 +39,7 @@ public interface ScheStuDao {
 	
 	public boolean delScheStu(ScheStu scheStu);
 	
-	public List<ScheStu> getLisScheStu(String timeStart, String timeEnd, String date, int userId);
+	public boolean checkByUserId(int userId);
+	
+	public List<ScheStu> getListScheStu(Map<String, Object> listValue);
 }

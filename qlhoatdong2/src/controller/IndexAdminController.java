@@ -13,7 +13,7 @@ import utils.Constant;
 /**
  * Servlet implementation class IndexAdminController
  */
-@WebServlet("/admin/index.htm")
+@WebServlet("/admin/index.ad")
 public class IndexAdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

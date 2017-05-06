@@ -302,7 +302,7 @@
 											<option value="4">T4</option>
 											<option value="5">T5</option>
 											<option value="6">T6</option>
-											<option value="0">T7</option>
+											<option value="7">T7</option>
 											<option value="1">CN</option>
 										</c:when>
 										<c:otherwise>
@@ -347,11 +347,11 @@
 												</c:otherwise>
 											</c:choose>
 											<c:choose>
-												<c:when test="${scheStu.dateOfWeek == 0 }">
+												<c:when test="${scheStu.dateOfWeek == 7 }">
 													<option value="0" selected="selected">T7</option>
 												</c:when>
 												<c:otherwise>
-													<option value="0">T7</option>
+													<option value="7">T7</option>
 												</c:otherwise>
 											</c:choose>
 											<c:choose>

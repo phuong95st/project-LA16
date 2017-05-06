@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import entity.Week;
@@ -15,4 +16,10 @@ import entity.Week;
  */
 public interface WeekDao {
 	public List<Week> getListWeek(String hocKy);
+	
+	public Week getCurrentWeek(Timestamp now);
+	
+	public Week getWeekById(int weekId);
+	
+	public boolean addWeek(Week week);
 }

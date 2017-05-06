@@ -44,7 +44,7 @@ public class ViewTeachController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String hocKy = request.getParameter("hocKy");
+		String hocKy = request.getParameter("hocKy");	
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		List<Teach> listTeach = new TeachDaoImpl().getListTeach(null, hocKy, user.getUserId());

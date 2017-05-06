@@ -11,13 +11,11 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TimeZone;
 
-import utils.Common;
 import dao.ScheStuDao;
 import entity.HocKy;
 import entity.Position;
@@ -94,8 +92,7 @@ public class ScheStuDaoImpl extends BaseDaoImpl implements ScheStuDao {
 	 * @see dao.ScheStuDao#getListScheStu(java.util.Map, int)
 	 */
 	@Override
-	public List<ScheStu> getListScheStu(Map<String, String> listValue,
-			int userId) {
+	public List<ScheStu> getListScheStu(Map<String, Object> listValue,int userId) {
 		List<ScheStu> list = new ArrayList<>();
 		if (connectToDB()) {
 
@@ -104,13 +101,13 @@ public class ScheStuDaoImpl extends BaseDaoImpl implements ScheStuDao {
 			if (listValue.size() != 0) {
 				sql.append("WHERE ");
 				int i = 0;
-				for (Entry<String, String> value : listValue.entrySet()) {
+				for (Entry<String, Object> value : listValue.entrySet()) {
 					if (i != 0) {
 						sql.append(" AND ");
 					}
 					if ("name".equals(value.getKey())) {
 						sql.append("student_name LIKE ? ");
-					} else {
+					} else{
 						sql.append(value.getKey());
 						sql.append(" = ? ");
 					}
@@ -125,14 +122,16 @@ public class ScheStuDaoImpl extends BaseDaoImpl implements ScheStuDao {
 				if (listValue.size() != 0) {
 					sql.append("WHERE ");
 					int i = 1;
-					for (Entry<String, String> value : listValue.entrySet()) {
+					for (Entry<String, Object> value : listValue.entrySet()) {
 						if (i != 0) {
 							sql.append(" AND ");
 						}
 						if ("name".equals(value.getKey())) {
-							ps.setString(i, "%" + value.getValue() + "%");
-						} else {
-							ps.setString(i, value.getValue());
+							ps.setString(i, "%" + (String)value.getValue() + "%");
+						} else if(value.getValue().getClass() == Integer.class){
+							ps.setInt(i, (int)value.getValue());
+						}else{
+							ps.setString(i, (String)value.getValue());
 						}
 						i++;
 					}
@@ -402,44 +401,163 @@ public class ScheStuDaoImpl extends BaseDaoImpl implements ScheStuDao {
 		return false;
 	}
 
+//	/* (non-Javadoc)
+//	 * @see dao.ScheStuDao#getLisScheStu(java.lang.String, java.lang.String, java.lang.String, int)
+//	 */
+//	@SuppressWarnings("deprecation")
+//	@Override
+//	public List<ScheStu> getLisScheStu(String timeStart, String timeEnd,String date, int userId) {
+//		List<ScheStu> list = new ArrayList<>();
+//		if (connectToDB()) {
+//			// lấy ngày của tuần
+//			Calendar cal = new GregorianCalendar(Common.getYearByString(date), Common.getMonthByString(date) - 1, Common.getDayOfMonthByString(date));
+//			int dateOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+//			StringBuilder sql = new StringBuilder();
+//			try {
+//				if("".equals(timeStart)){
+//					sql.append("SELECT * FROM tbl_sche_stu ss INNER JOIN tbl_week w1 ON ss.week_start = w1.week_id INNER JOIN tbl_week w2 ON ss.week_end = w2.week_id INNER JOIN tbl_position p ON ss.phong = p.phong WHERE date_of_week = ? AND w1.start_date <= ? AND w2.end_date >= ? AND user_id = ? ");
+//					ps = conn.prepareStatement(sql.toString());
+//					ps.setInt(1, dateOfWeek);
+//					ps.setDate(2, new Date(cal.getTimeInMillis()));
+//					ps.setDate(3, new Date(cal.getTimeInMillis()));
+//					ps.setInt(4, userId);
+//				}else{
+//					// get Time
+//					Time start = new Time(Common.getHourByString(timeStart), Common.getMinByString(timeStart), 0);
+//					Time end = new Time(Common.getHourByString(timeEnd),Common.getMinByString(timeEnd), 0);
+//					sql.append("SELECT * FROM tbl_sche_stu ss INNER JOIN tbl_week w1 ON ss.week_start = w1.week_id INNER JOIN tbl_week w2 ON ss.week_end = w2.week_id INNER JOIN tbl_position p ON ss.phong = p.phong WHERE date_of_week = ? AND w1.start_date <= ? AND w2.end_date >= ? AND user_id = ? AND ((ss.time_start <= ? AND ss.time_end>= ?) OR (ss.time_start <= ? AND ss.time_end>= ?))");
+//					ps = conn.prepareStatement(sql.toString());
+//					int i = 1;
+//					ps.setInt(i++, dateOfWeek);
+//					ps.setDate(i++, new Date(cal.getTimeInMillis()));
+//					ps.setDate(i++, new Date(cal.getTimeInMillis()));
+//					ps.setInt(i++, userId);
+//					ps.setTime(i++, start);
+//					ps.setTime(i++, start);
+//					ps.setTime(i++, end);
+//					ps.setTime(i++, end);
+//				}
+//				
+//
+//				rs = ps.executeQuery();
+//				while (rs.next()) {
+//					ScheStu scheStu = new ScheStu();
+//					scheStu.setId(rs.getInt("id"));
+//					scheStu.setStart(rs.getTime("time_start"));
+//					scheStu.setEnd(rs.getTime("time_end"));
+//					scheStu.setType(rs.getInt("type"));
+//					User user = new User();
+//					user.setUserId(rs.getInt("user_id"));
+//					scheStu.setUser(user);
+//
+//					scheStu.setPhong(new Position(rs.getString("p.phong"), rs
+//							.getDouble("p.latitude"), rs.getDouble("longitude")));
+//					scheStu.setDateOfWeek(rs.getInt("date_of_week"));
+//					scheStu.setStudentName(rs.getString("student_name"));
+//					scheStu.setTopic(rs.getString("topic"));
+//
+//					list.add(scheStu);
+//				}
+//			} catch (SQLException e) {
+//				System.out.println("Error: " + e.getMessage());
+//				e.printStackTrace();
+//			} finally {
+//				close();
+//			}
+//
+//		}
+//		return list;
+//	}
+
 	/* (non-Javadoc)
-	 * @see dao.ScheStuDao#getLisScheStu(java.lang.String, java.lang.String, java.lang.String, int)
+	 * @see dao.ScheStuDao#checkByUserId(int)
 	 */
-	@SuppressWarnings("deprecation")
 	@Override
-	public List<ScheStu> getLisScheStu(String timeStart, String timeEnd,String date, int userId) {
+	public boolean checkByUserId(int userId) {
+		if (connectToDB()) {
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT COUNT(*) FROM `tbl_sche_stu` WHERE `user_id` = ?");
+			try {
+				ps = conn.prepareStatement(sql.toString());
+				ps.setInt(1, userId);
+				rs = ps.executeQuery();
+				if(rs.next()){
+					if(rs.getInt(1) != 0){
+						return true;
+					}
+				}
+			} catch (SQLException e) {
+				System.out.println("Error: " + e.getMessage());
+			} finally {
+				close();
+			}
+		}
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see dao.ScheStuDao#getListScheStu(java.util.Map)
+	 */
+	@Override
+	public List<ScheStu> getListScheStu(Map<String, Object> listValue) {
 		List<ScheStu> list = new ArrayList<>();
 		if (connectToDB()) {
-			// lấy ngày của tuần
-			Calendar cal = new GregorianCalendar(Common.getYearByString(date), Common.getMonthByString(date) - 1, Common.getDayOfMonthByString(date));
-			int dateOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * FROM tbl_sche_stu ss INNER JOIN tbl_week w1 ON ss.week_start = w1.week_id INNER JOIN tbl_week w2 ON ss.week_end = w2.week_id INNER JOIN tbl_position p ON ss.phong = p.phong WHERE ");
 			try {
-				if("".equals(timeStart)){
-					sql.append("SELECT * FROM tbl_sche_stu ss INNER JOIN tbl_week w1 ON ss.week_start = w1.week_id INNER JOIN tbl_week w2 ON ss.week_end = w2.week_id INNER JOIN tbl_position p ON ss.phong = p.phong WHERE date_of_week = ? AND w1.start_date <= ? AND w2.end_date >= ? AND user_id = ? ");
-					ps = conn.prepareStatement(sql.toString());
-					ps.setInt(1, dateOfWeek);
-					ps.setDate(2, new Date(cal.getTimeInMillis()));
-					ps.setDate(3, new Date(cal.getTimeInMillis()));
-					ps.setInt(4, userId);
-				}else{
-					// get Time
-					Time start = new Time(Common.getHourByString(timeStart), Common.getMinByString(timeStart), 0);
-					Time end = new Time(Common.getHourByString(timeEnd),Common.getMinByString(timeEnd), 0);
-					sql.append("SELECT * FROM tbl_sche_stu ss INNER JOIN tbl_week w1 ON ss.week_start = w1.week_id INNER JOIN tbl_week w2 ON ss.week_end = w2.week_id INNER JOIN tbl_position p ON ss.phong = p.phong WHERE date_of_week = ? AND w1.start_date <= ? AND w2.end_date >= ? AND user_id = ? AND ((ss.time_start <= ? AND ss.time_end>= ?) OR (ss.time_start <= ? AND ss.time_end>= ?))");
-					ps = conn.prepareStatement(sql.toString());
-					int i = 1;
-					ps.setInt(i++, dateOfWeek);
-					ps.setDate(i++, new Date(cal.getTimeInMillis()));
-					ps.setDate(i++, new Date(cal.getTimeInMillis()));
-					ps.setInt(i++, userId);
-					ps.setTime(i++, start);
-					ps.setTime(i++, start);
-					ps.setTime(i++, end);
-					ps.setTime(i++, end);
+				int i = 0;
+				boolean isTime = false;
+				for (Entry<String, Object> item : listValue.entrySet()) {
+					if(i != 0 && item.getValue().getClass() != Time.class){
+						sql.append(" AND ");
+					}
+					if(item.getValue().getClass() == Time.class){
+						isTime = true;
+					}else if(item.getValue().getClass() == Date.class){
+						sql.append(" w1.start_date <= ? AND w2.end_date >= ? AND date_of_week = ? ");
+					}else if(item.getValue().getClass() == Integer.class){
+						sql.append(item.getKey() + " = ?");
+					}
+					i++;
+				}
+				if(isTime){
+					sql.append(" AND ((ss.time_start <= ? AND ss.time_end>= ?) OR (ss.time_start <= ? AND ss.time_end>= ?) OR (ss.time_start >= ? AND  ss.time_end <= ?)) ");
 				}
 				
+//				System.out.println(sql.toString());
+				ps = conn.prepareStatement(sql.toString());
+				
+				Time timeStart = null;
+				Time timeEnd = null;
+				i = 1;
+				for (Entry<String, Object> item : listValue.entrySet()) {
+					if(item.getValue().getClass() == Time.class){
+						if(item.getKey().contains("time_start")){
+							timeStart = (Time)item.getValue();
+						}else if(item.getKey().contains("time_end")){
+							timeEnd = (Time)item.getValue();
+						}
+					}else if(item.getValue().getClass() == Date.class){
+						Date date = (Date)item.getValue();
+						Calendar cal = Calendar.getInstance();
+						cal.setTimeInMillis(date.getTime());
+						int dateOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 
+						ps.setDate(i++, (Date)item.getValue());
+						ps.setDate(i++, (Date)item.getValue());
+						ps.setInt(i++, dateOfWeek);
+					}else if(item.getValue().getClass() == Integer.class){
+						ps.setInt(i++, (int)item.getValue());
+					}
+				}
+				if(timeStart != null){
+					ps.setTime(i++, timeStart);
+					ps.setTime(i++, timeStart);
+					ps.setTime(i++, timeEnd);
+					ps.setTime(i++, timeEnd);
+					ps.setTime(i++, timeStart);
+					ps.setTime(i++, timeEnd);
+				}
 				rs = ps.executeQuery();
 				while (rs.next()) {
 					ScheStu scheStu = new ScheStu();
@@ -447,29 +565,24 @@ public class ScheStuDaoImpl extends BaseDaoImpl implements ScheStuDao {
 					scheStu.setStart(rs.getTime("time_start"));
 					scheStu.setEnd(rs.getTime("time_end"));
 					scheStu.setType(rs.getInt("type"));
-					User user = new User();
-					user.setUserId(rs.getInt("user_id"));
+					
+					User user = new UserDaoImpl().getUserById(rs.getInt("user_id"));
 					scheStu.setUser(user);
 
-					scheStu.setPhong(new Position(rs.getString("p.phong"), rs
-							.getDouble("p.latitude"), rs.getDouble("longitude")));
+					scheStu.setPhong(new Position(rs.getString("p.phong"), rs.getDouble("p.latitude"), rs.getDouble("longitude")));
 					scheStu.setDateOfWeek(rs.getInt("date_of_week"));
 					scheStu.setStudentName(rs.getString("student_name"));
 					scheStu.setTopic(rs.getString("topic"));
 
 					list.add(scheStu);
 				}
+				
 			} catch (SQLException e) {
 				System.out.println("Error: " + e.getMessage());
-				e.printStackTrace();
 			} finally {
 				close();
 			}
-
 		}
 		return list;
-	}
-	public static void main(String[] args){
-		System.out.println(new ScheStuDaoImpl().getLisScheStu("10:00", "15:00", "20/03/2017", 1));
 	}
 }

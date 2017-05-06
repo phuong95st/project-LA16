@@ -75,12 +75,12 @@ $(document).ready(function(){
 									</c:forEach>
 								</select>
 							</div>
-							<button type="button" class="btn btn-success" name="tracuu">Tra cứu</button>
+							<button type="button" class="btn btn-success" name="tracuu"><span class="glyphicon glyphicon-search"></span> Tra cứu</button>
 						</form>
 					</div>
 					<div style="clear: both">
 
-						<a class="btn btn-info" href="student_manager.htm?action=add">Add</a>
+						<a class="btn btn-info" href="student_manager.htm?action=add"><span class="glyphicon glyphicon-plus"></span> Thêm</a>
 
 						<br> <br>
 						<div id="studentLoad">

@@ -22,7 +22,7 @@
 				<c:set value="1" var="no"></c:set>
 				<c:forEach items="${lisScheStus }" var="scheStu">
 					<tr>
-						<td><a href="student_detail.htm?action=view&scheStuId=${scheStu.id }">${no }</a></td>
+						<td><a href="student_detail.htm?action=view&scheStuId=${scheStu.id }"><span class="glyphicon glyphicon-pencil"></span> ${no }</a></td>
 						<td>${my:mapDayOfWeek(scheStu.dateOfWeek) }</td>
 						<td>${my:getHour(scheStu.start) } - ${my:getHour(scheStu.end) }</td>
 						<td>${scheStu.wStart.weekCount } - ${scheStu.wEnd.weekCount }</td>

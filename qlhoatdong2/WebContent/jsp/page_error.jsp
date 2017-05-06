@@ -9,7 +9,11 @@
 </head>
 <body>
 	<div class="container">
-		<div class="h3 text-danger">${error }</div>
+		<div class="h3 text-danger">
+			${error }<br><br>
+			<a class="btn btn-info" href="index.htm"><span class="glyphicon glyphicon-home"></span> Back to home</a>
+		</div>
+		
 	</div>
 </body>
 </html>

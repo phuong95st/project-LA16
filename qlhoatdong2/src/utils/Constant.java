@@ -19,4 +19,10 @@ public class Constant {
 	public static final String DAY = "day";
 	public static final String MONTH = "month";
 	public static final String YEAR = "year";
+	
+	public static final String TBL_ONL = "o";
+	public static final String TBL_WEEK = "w";
+	public static final String TBL_HOC_KY = "h";
+	
+	
 }
