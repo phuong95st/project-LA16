@@ -1,0 +1,117 @@
+#login {
+	background-color: #EBEBEB;
+	padding-top: 20pt;
+	border: solid 1px;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+#content {
+	height: auto;
+	border-left: solid 1px gray;
+	border-right: solid 1px gray;
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+	padding-top: 20px;
+	background-color: #DFF0D8;
+	height: 100%;
+	text-align: left;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	}
+}
+
+#title {
+	font-size: 30pt;
+	color: #FFF;
+	margin-bottom: 16pt;
+}
+
+#banner {
+	background-color: #555555;
+	padding: 5pt;
+}
+
+#title2 {
+	color: #FFF;
+	font-size: 15pt;
+}
+
+/*#content{
+	background-color: #F1F5F8;
+	margin-top: 5pt;
+	margin-bottom: 5pt;
+	border: solid 1px gray;
+	height: auto;
+	
+}*/
+#wellcome,#stuCal,#late {
+	margin-top: 10pt;
+	width: 100%;
+	height: auto;
+	border: solid 1px gray;
+	padding: 5pt;
+	background-color: #F1F5F8;
+}
+
+#wellcome {
+	overflow: hidden;
+	color: red;
+	font-size: large;
+	font-weight: bold;
+}
+
+#OnlCal,#teach,.subContent {
+	margin: 10pt 11pt;
+	width: 97%;
+	height: auto;
+	border: solid 1px gray;
+	padding: 5pt;
+	background-color: #F1F5F8
+}
+
+#lbl-menu {
+	font-weight: bold;
+	font-size: large;
+}
+
+#all_content {
+	border-left: solid 1px gray;
+}
+
+#table_register>tr>td:first,#table_register>tr>td:last {
+	text-align: center;
+}
+
+.mess_error {
+	color: red;
+	font-size: small;
+}
+
+.red {
+	color: red;
+}
+
+#myPositionMap {
+	margin: 20px 0;
+	padding: 0;
+	height: 300px;
+	float: left;
+	width: 100%;
+}
